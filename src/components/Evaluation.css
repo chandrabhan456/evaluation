@@ -10,7 +10,7 @@ body {
     overflow-y: auto;  /* Subtract the height of the navbar */
   }
   .sidebar {
-    width: 235px;
+    width: 432px;
     background-color: #f8f9fa;
     padding: 20px;
     
@@ -60,10 +60,15 @@ body {
     color: #007bff;
   }
   .sidebarContent{
-    margin-top: 10%;
+    margin-top: 3%;
+  }.button-container {
+    display: grid;
+    grid-template-columns: repeat(2, auto); /* Two columns */
+    gap: 20px; /* Space between rows and columns */
+    justify-content: center; /* Center the grid */
   }
+  
   .home-button {
-    display: inline-block;
     background: linear-gradient(45deg, #007bff, #00d4ff);
     color: #fff;
     font-size: 16px;
@@ -75,10 +80,10 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     cursor: pointer;
-    text-decoration: none; /* For links styled as buttons */
+    text-decoration: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-   
   }
+  
   
   .home-button:hover {
     transform: scale(1.05);
@@ -94,7 +99,7 @@ body {
     flex: 1;
     padding: 10px;
     overflow-y: auto;
-    margin-top: 1.5%;
+    margin-top: .4%;
   }
   
   .flex-container {
@@ -112,7 +117,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: 100%; /* Set full height */
+    height: 101%; /* Set full height */
     display: flex; /* Ensure content inside is aligned properly */
     flex-direction: column; /* To allow vertical alignment */
   }.input-container {

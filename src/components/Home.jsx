@@ -3,7 +3,7 @@ import "./Evaluation.css";
 import { FiSend } from "react-icons/fi";
 import { useStateContext } from '../contexts/ContextProvider';
 import { Link, NavLink } from 'react-router-dom';
-const Evaluation1 = () => {
+const Home = () => {
   const techniquesData = [
     { id: 1, name: "Hybrid_Search_Method", description: "Description for Technique 1" },
     { id: 2, name: "HyDE_Search_Method", description: "Description for Technique 2" },
@@ -21,7 +21,7 @@ const Evaluation1 = () => {
 
   const [selectedTechniques, setSelectedTechniques] = useState([techniquesData[0].name, techniquesData[1].name]);
   const [userInput, setUserInput] = useState("");
- const {home,setHome,playgrond,setPlaygrond} = useStateContext();
+ const {home,setHome,playgrond,setPlaygrond,} = useStateContext();
   const toggleTechnique = (techniqueName) => {
     setSelectedTechniques((prev) => {
       if (prev.includes(techniqueName)) {
@@ -50,7 +50,7 @@ const Evaluation1 = () => {
         <div className="sidebarContent">
           <div className="button-container">
           <NavLink
-                onClick={() =>  {setHome(true); }}
+                onClick={() =>  {setHome(true);setPlaygrond(false) }}
                             to='/home'
                             key='Home'
                            
@@ -60,7 +60,7 @@ const Evaluation1 = () => {
         <NavLink
                 onClick={() =>  {setHome(false);setPlaygrond(true) }}
                             to='/evaluation'
-                            key='evaluation'
+                            key=''
                            
                            
                           ><button className="home-button ">Playground</button></NavLink>
@@ -84,17 +84,7 @@ const Evaluation1 = () => {
       </div>
 
       <div className="content">
-        <div className="input-container">
-          <textarea
-            className="question-input"
-            placeholder="Type your question here..."
-            value={userInput}
-            onChange={handleInputChange}
-          ></textarea>
-          <button className="send-button" onClick={handleSendClick}>
-            <FiSend className="send-icon" />
-          </button>
-        </div>
+        
         <div className="flex-container">
           {selectedTechniques.map((techniqueName, index) => {
             const technique = techniquesData.find((t) => t.name === techniqueName);
@@ -111,4 +101,4 @@ const Evaluation1 = () => {
   );
 };
 
-export default Evaluation1;
+export default Home;

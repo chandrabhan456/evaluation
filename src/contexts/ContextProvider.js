@@ -42,13 +42,13 @@ export const ContextProvider = ({ children }) => {
   const [schemaSuccess,setSchema] = useState(false);
   const [querySuccess,setQuery] = useState(false);
   const [configurationSettings, setConfigSettings] = useState(false);
-  
-  
+  const [home,setHome] = useState(true)
+  const [playgrond,setPlaygrond] = useState(false)
   const handleClick = (clicked) => setIsClicked({ ...initialState, [clicked]: true });
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <StateContext.Provider value={{ login1,setlogin1,mainPage,setMainPage,configurationSettings, setConfigSettings,querySuccess,setQuery,openAiSetting,setopenAiSettings,dbConfiguration,setDBConfiguration,dbSchema,schemaSuccess,setSchema,setDBSchema,openAISuccess,setOpenAISuccess,activeMenu,setActiveMenu,handleClick,setIsClicked,isClicked,initialState,setCurrentColor}}>
+    <StateContext.Provider value={{ playgrond,setPlaygrond,home,setHome,login1,setlogin1,mainPage,setMainPage,configurationSettings, setConfigSettings,querySuccess,setQuery,openAiSetting,setopenAiSettings,dbConfiguration,setDBConfiguration,dbSchema,schemaSuccess,setSchema,setDBSchema,openAISuccess,setOpenAISuccess,activeMenu,setActiveMenu,handleClick,setIsClicked,isClicked,initialState,setCurrentColor}}>
       {children}
     </StateContext.Provider>
   );
