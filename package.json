@@ -7,6 +7,9 @@
     "@chatscope/chat-ui-kit-react": "^2.0.3",
     "@fluentui/react-components": "^9.54.5",
     "@material-ui/core": "^4.12.4",
+    "@react-pdf-viewer/core": "^3.12.0",
+    "@react-pdf-viewer/default-layout": "^3.12.0",
+    "@react-pdf-viewer/zoom": "^3.12.0",
     "@syncfusion/ej2": "^26.2.14",
     "@syncfusion/ej2-react-popups": "^26.2.11",
     "azure-openai": "^0.9.4",
@@ -15,8 +18,9 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.12.0",
+    "react-pdf": "^9.2.1",
     "react-router-dom": "^6.2.1",
-    "react-scripts": "5.0.0"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

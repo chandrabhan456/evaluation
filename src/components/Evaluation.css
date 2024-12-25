@@ -60,7 +60,7 @@ body {
     color: #007bff;
   }
   .sidebarContent{
-    margin-top: 3%;
+    margin-top: 10%;
   }.button-container {
     display: grid;
     grid-template-columns: repeat(2, auto); /* Two columns */

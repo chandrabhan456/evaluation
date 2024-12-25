@@ -21,7 +21,7 @@ const Evaluation1 = () => {
 
   const [selectedTechniques, setSelectedTechniques] = useState([techniquesData[0].name, techniquesData[1].name]);
   const [userInput, setUserInput] = useState("");
- const {home,setHome,playgrond,setPlaygrond} = useStateContext();
+ const {home,setHome,playgrond,setPlaygrond,vertorDB,setVectorDB} = useStateContext();
   const toggleTechnique = (techniqueName) => {
     setSelectedTechniques((prev) => {
       if (prev.includes(techniqueName)) {

@@ -3,7 +3,7 @@ import "./Evaluation.css";
 import { FiSend } from "react-icons/fi";
 import { useStateContext } from '../contexts/ContextProvider';
 import { Link, NavLink } from 'react-router-dom';
-const Home = () => {
+const VectorDB = () => {
   const techniquesData = [
     { id: 1, name: "Hybrid_Search_Method", description: "Description for Technique 1" },
     { id: 2, name: "HyDE_Search_Method", description: "Description for Technique 2" },
@@ -107,4 +107,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default VectorDB;

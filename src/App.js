@@ -3,7 +3,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar,  Sidebar} from './views';
 import { useStateContext } from './contexts/ContextProvider';
-import {DbConfig,DatabaseConfig,Evaluation1,Home } from './components'
+import {DbConfig,DatabaseConfig,Evaluation1,Home,VectorDB } from './components'
 import nttlogo from './data/nttdatalogo.svg';
 import Login from "./views/Login";
 const App = () => {
@@ -49,6 +49,7 @@ const App = () => {
 
                 <Route path="/" element={(<Home />)}/>
                 <Route path="/home" element={(<Home />)}/>
+                <Route path="/vectorDB" element={(<VectorDB />)}/>
                 <Route path="/evaluation" element={(<Evaluation1 />)}/>
                 <Route path="/openAIConfiguration" element={(<DbConfig />)}/>
                 <Route path="/databaseConfig" element={(<DatabaseConfig />)}/> 
