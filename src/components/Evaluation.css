@@ -1,0 +1,171 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .app-container {
+    display: flex;
+    height: calc(100vh - 60px);
+    
+    overflow-y: auto;  /* Subtract the height of the navbar */
+  }
+  .sidebar {
+    width: 235px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    
+    border-right: 1px solid #ddd;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 8%;
+  }
+  
+  .sidebar li {
+    margin-bottom: 15px;
+  }
+  
+  .sidebar label {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  
+  .sidebar label:hover {
+    color: #007bff;
+  }
+  
+  .sidebar input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+  
+  .sidebar input[type="checkbox"]:checked + span {
+    font-weight: bold;
+    color: #007bff;
+  }
+  .sidebarContent{
+    margin-top: 10%;
+  }
+  .home-button {
+    display: inline-block;
+    background: linear-gradient(45deg, #007bff, #00d4ff);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    width: 140px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none; /* For links styled as buttons */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+   
+  }
+  
+  .home-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .home-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .content {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    margin-top: 1.5%;
+  }
+  
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: -1%;
+     height: 100%;
+  }
+  
+  .dynamic-box {
+    flex: 1 1 calc(50% - 30px); /* Adjust the width dynamically */
+    background-color: #e9ecef;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 100%; /* Set full height */
+    display: flex; /* Ensure content inside is aligned properly */
+    flex-direction: column; /* To allow vertical alignment */
+  }.input-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .question-input {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    resize: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding-right: 50px; /* Leave space for the send button */
+  }
+  
+  .send-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .send-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .send-icon {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  @media (max-width: 768px) {
+    
+    .app-container {
+      display: flex;
+      height: calc(100vh - 60px);
+      margin-top: 10%;
+      overflow-y: auto;  /* Subtract the height of the navbar */
+    }
+  }

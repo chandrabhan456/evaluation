@@ -1,25 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useEffect,useState} from 'react'
+import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Navbar,  Sidebar} from './views';
+import { useStateContext } from './contexts/ContextProvider';
+import { QueryGenerator1,OpenAiConfig,DbConfig,DbObjectSelector,DatabaseConfig,Evaluation1 } from './components'
+import nttlogo from './data/nttdatalogo.svg';
+import Login from "./views/Login";
+const App = () => {
+  localStorage.setItem('OpenAI_Configuration',true)
+ 
+  const {activeMenu, setActiveMenu,login1,setlogin1 } = useStateContext();
+  console.log("chandu",login1)
+  
+ 
 
-function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+<div>
+  <BrowserRouter>
+  
+  { !login1 && <Login />}
+    {login1 &&  
+    
+  <div className='flex relative '>
+    {console.log("login1",login1)}
+     {/* {activeMenu ? (
+      <div className='w-60 fixed bg-white'>
+        <Sidebar />
+      </div>
+    ) : (<div className='w-16 fixed bg-white'>
+      <Sidebar />
+      </div>)}  */}
+    
+    
+      <div
+            className={
+              activeMenu
+                ? 'bg-white min-h-screen   md:ml-0 w-full '
+                : 'bg-white min-h-screen  md:ml-0 w-full  '
+            }
+          >
+            <div className="fixed md:static bg-white navbar w-full ">
+              <Navbar />
+            </div>
+          
+            <Routes>
+                {/* dashboard  */}
+              
+
+                <Route path="/" element={(<Evaluation1 />)}/>
+               <Route path="/dbQuerySelector" element={(<DbObjectSelector />)}/>
+                <Route path="/openAIConfiguration" element={(<DbConfig />)}/>
+                <Route path="/databaseConfig" element={(<DatabaseConfig />)}/> 
+               
+                </Routes>
+  
+      </div>
+  </div>
+   }
+ 
+  </BrowserRouter>
+ 
+</div>  )
 }
 
-export default App;
+export default App

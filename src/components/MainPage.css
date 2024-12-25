@@ -1,0 +1,36 @@
+.main-page {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  margin-left: 10%;
+  width:80%;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .main-page {
+      margin-left: 0%;
+      padding: 10px;
+  }
+}
+
+   /* Container grid for 4 containers per row */
+.container-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 containers per row */
+  gap: 20px; /* Space between containers */
+}
+
+/* Responsive layout: 2 containers per row for smaller screens */
+@media (max-width: 768px) {
+  .container-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 containers per row */
+  }
+}
+
+/* Responsive layout: 1 container per row for very small screens */
+@media (max-width: 480px) {
+  .container-grid {
+    grid-template-columns: 1fr; /* 1 container per row */
+  }
+}
