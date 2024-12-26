@@ -70,7 +70,7 @@ const Home = () => {
                            
                            
                           ><button className="home-button ">Playground</button></NavLink>
-        <button className="home-button ">Setting</button>
+        <button className="home-button ">Library</button>
         </div>
         <ul>
           {techniquesData.map((technique) => (

@@ -56,7 +56,7 @@ const Setting = () => {
                     <span className="capitalize text-black text-lg ml-2 " >OpenAI</span>
                   </NavLink>
           </div>
-        <div className='flex mt-1  hover:text-black hover:bg-[#808080] rounded'>
+        {/* <div className='flex mt-1  hover:text-black hover:bg-[#808080] rounded'>
         <BsDatabaseFillGear style={{height:"25px",width:"25px",color:'black'}} />
         <NavLink
         onClick={() =>  {handleClick(false);setActiveMenu(false); }}
@@ -70,7 +70,7 @@ const Setting = () => {
                     <span className="capitalize text-black text-lg ml-2 " >Database</span>
                   </NavLink>
            </div>  
-           
+            */}
           </div>
       
           </div>

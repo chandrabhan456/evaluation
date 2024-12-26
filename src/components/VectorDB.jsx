@@ -1,8 +1,20 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+
+import { pdfjs } from 'pdfjs-dist';
 import "./Evaluation.css";
 import { FiSend } from "react-icons/fi";
 import { useStateContext } from '../contexts/ContextProvider';
 import { Link, NavLink } from 'react-router-dom';
+import { FaRegFilePdf } from "react-icons/fa";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
+import "@react-pdf-viewer/core/lib/styles/index.css";
+
+// Default layout (optional, remove if not using)
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+import { version as pdfjsVersion } from "pdfjs-dist/package.json";
+import samplePDF from '../data/237696_Chandrabhan_Gehlot_Resume.pdf';
+
 const VectorDB = () => {
   const techniquesData = [
     { id: 1, name: "Hybrid_Search_Method", description: "Description for Technique 1" },
@@ -18,93 +30,130 @@ const VectorDB = () => {
     { id: 11, name: "Vector_Search_With_Score", description: "Description for Technique 7" },
  
   ];
+  const defaultLayout = defaultLayoutPlugin();
+  const pdfUrl = {samplePDF}
 
-  const [selectedTechniques, setSelectedTechniques] = useState([techniquesData[0].name, techniquesData[1].name]);
-  const [userInput, setUserInput] = useState("");
- const {home,setHome,playgrond,setPlaygrond,vertorDB,setVectorDB} = useStateContext();
-  const toggleTechnique = (techniqueName) => {
-    setSelectedTechniques((prev) => {
-      if (prev.includes(techniqueName)) {
-        return prev.filter((item) => item !== techniqueName);
-      } else if (prev.length < 2) {
-        return [...prev, techniqueName];
-      }
-      return prev;
-    });
-  };
+   const [selectedTechniques, setSelectedTechniques] = useState([techniquesData[0].name, techniquesData[1].name]);
+   const {home,setHome,playgrond,setPlaygrond,vertorDB,setVectorDB} = useStateContext();
+   const [pdfFile, setPdfFile] = useState(null);
+    const [fileName, setFileName] = useState(null);
 
-  const handleInputChange = (event) => {
-    setUserInput(event.target.value);
-  };
-
-  const handleSendClick = () => {
-    console.log("Message sent:", userInput);
-    setUserInput(""); // Clear input after sending
-  };
-
-  return (
-    <div className="app-container">
-     
- 
-      <div className="sidebar">
-        <div className="sidebarContent">
-          <div className="button-container">
-          <NavLink
-                onClick={() =>  {setHome(true);setPlaygrond(false);setVectorDB(false) }}
-                            to='/home'
-                            key='Home'
-                           
-                           
-                          ><button className="home-button">Home</button></NavLink>
-         <NavLink
-                onClick={() =>  {setHome(false);setPlaygrond(false);setVectorDB(true) }}
-                            to='/vectorDB'
-                            key='VectorDB'
-                           
-                           
-                          ><button className="home-button ">Vector DB</button></NavLink>
-        <NavLink
-                onClick={() =>  {setHome(false);setPlaygrond(true);setVectorDB(false) }}
-                            to='/evaluation'
-                            key=''
-                           
-                           
-                          ><button className="home-button ">Playground</button></NavLink>
-        <button className="home-button ">Setting</button>
-        </div>
-        <ul>
-          {techniquesData.map((technique) => (
-            <li key={technique.id}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedTechniques.includes(technique.name)}
-                  onChange={() => toggleTechnique(technique.name)}
-                />
-                {technique.name}
-              </label>
-            </li>
-          ))}
-        </ul>
-        </div>
-      </div>
-
-      <div className="content">
-        
-        <div className="flex-container">
-          {selectedTechniques.map((techniqueName, index) => {
-            const technique = techniquesData.find((t) => t.name === techniqueName);
-            return (
-              <div key={index} className="dynamic-box">
-                <h4>{technique.name}</h4>
-                <p>{technique.description}</p>
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file && file.type === 'application/pdf') {
+            const fileUrl = URL.createObjectURL(file);
+            setPdfFile(fileUrl);
+            setFileName(file.name);
+        } else {
+            alert('Please upload a valid PDF file.');
+        }
+    };
+    const toggleTechnique = (techniqueName) => {
+      setSelectedTechniques((prev) => {
+        if (prev.includes(techniqueName)) {
+          return prev.filter((item) => item !== techniqueName);
+        } else if (prev.length < 2) {
+          return [...prev, techniqueName];
+        }
+        return prev;
+      });
+    };
+    return (
+       <div className="app-container">
+           
+       
+            <div className="sidebar">
+              <div className="sidebarContent">
+                <div className="button-container">
+                <NavLink
+                      onClick={() =>  {setHome(true);setPlaygrond(false);setVectorDB(false) }}
+                                  to='/home'
+                                  key='Home'
+                                 
+                                 
+                                ><button className="home-button">Home</button></NavLink>
+              <NavLink
+                      onClick={() =>  {setHome(false);setPlaygrond(false);setVectorDB(true) }}
+                                  to='/vectorDB'
+                                  key='vectorDB'
+                                 
+                                 
+                                ><button className="home-button ">Vector DB</button></NavLink>
+              <NavLink
+                      onClick={() =>  {setHome(false);setPlaygrond(true);setVectorDB(false) }}
+                                  to='/evaluation'
+                                  key='evaluation'
+                                 
+                                 
+                                ><button className="home-button ">Playground</button></NavLink>
+              <button className="home-button ">Library</button>
               </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
+              <ul>
+                {techniquesData.map((technique) => (
+                  <li key={technique.id}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={selectedTechniques.includes(technique.name)}
+                        onChange={() => toggleTechnique(technique.name)}
+                      />
+                      {technique.name}
+                    </label>
+                  </li>
+                ))}
+              </ul>
+              </div>
+            </div>
+      
+            <div className="content">
+             
+            
+              <div className="upload-container">
+                <input
+                    id="pdf-upload"
+                    type="file"
+                    accept="application/pdf"
+                    onChange={handleFileChange}
+                    className="hidden-input"
+                />
+                <label htmlFor="pdf-upload" className="drag-label">
+                    Drag & drop a PDF file here, or click to browse
+                </label>
+
+                </div>
+                <div className='flex'>
+                <div className="file-info">
+                {fileName && (
+                <div >
+                  <div className='flex'>
+                    <FaRegFilePdf style={{color:'#FF0000',marginTop:'2px'}}/>
+                    <p className='ml-1'>
+                        {fileName}
+                    </p>
+
+                    </div>
+                    <button className='home-button'>Create Index</button>
+                </div>
+                
+            )}
+            </div>
+            <div className="pdf-info ml-2">
+                {fileName && (
+                <div >
+                  <div className='flex'>
+                  <Worker workerUrl="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js">
+                <Viewer fileUrl={pdfFile} plugins={[defaultLayout]} />
+            </Worker>
+                  </div>
+                </div>
+                
+            )}
+            </div>
+            </div>
+              </div>
+            </div>
+         
+    );
 };
 
 export default VectorDB;

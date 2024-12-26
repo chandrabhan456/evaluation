@@ -45,7 +45,7 @@ const Login = () => {
 	return (
 		
 	  <div className="login">
-	<h4>Shoppy</h4>
+	<h4>Login</h4>
 	<form onSubmit={formSubmitter}>
 	  <div className="text_area">
 		<input

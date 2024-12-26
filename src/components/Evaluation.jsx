@@ -49,22 +49,28 @@ const Evaluation1 = () => {
       <div className="sidebar">
         <div className="sidebarContent">
           <div className="button-container">
-          <NavLink
-                onClick={() =>  {setHome(true); }}
-                            to='/home'
-                            key='Home'
-                           
-                           
-                          ><button className="home-button">Home</button></NavLink>
-        <button className="home-button ">Vector DB</button>
-        <NavLink
-                onClick={() =>  {setHome(false);setPlaygrond(true) }}
-                            to='/evaluation'
-                            key='evaluation'
-                           
-                           
-                          ><button className="home-button ">Playground</button></NavLink>
-        <button className="home-button ">Setting</button>
+            <NavLink
+                              onClick={() =>  {setHome(true);setPlaygrond(false);setVectorDB(false) }}
+                                          to='/home'
+                                          key='Home'
+                                         
+                                         
+                                        ><button className="home-button">Home</button></NavLink>
+                      <NavLink
+                              onClick={() =>  {setHome(false);setPlaygrond(false);setVectorDB(true) }}
+                                          to='/vectorDB'
+                                          key='vectorDB'
+                                         
+                                         
+                                        ><button className="home-button ">Vector DB</button></NavLink>
+                      <NavLink
+                              onClick={() =>  {setHome(false);setPlaygrond(true);setVectorDB(false) }}
+                                          to='/evaluation'
+                                          key='evaluation'
+                                         
+                                         
+                                        ><button className="home-button ">Playground</button></NavLink>
+                      <button className="home-button ">Library</button>
         </div>
         <ul>
           {techniquesData.map((technique) => (

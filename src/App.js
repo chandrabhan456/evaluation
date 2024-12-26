@@ -8,7 +8,7 @@ import nttlogo from './data/nttdatalogo.svg';
 import Login from "./views/Login";
 const App = () => {
   localStorage.setItem('OpenAI_Configuration',true)
- 
+  localStorage.removeItem("login");
   const {activeMenu, setActiveMenu,login1,setlogin1 } = useStateContext();
   console.log("chandu",login1)
   
