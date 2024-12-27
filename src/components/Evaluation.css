@@ -44,10 +44,10 @@ body {
     cursor: pointer;
     transition: color 0.2s;
   }
-  
+/*   
   .sidebar label:hover {
     color: #007bff;
-  }
+  } */
   
   .sidebar input[type="checkbox"] {
     margin-right: 10px;
@@ -240,6 +240,7 @@ body {
 .disabled-technique {
   color: gray; /* Makes the text gray */
   cursor: not-allowed; /* Changes the cursor to indicate it's disabled */
-  opacity: 0.6; /* Reduces opacity to show it's inactive */
+  opacity: 0.6; 
+  /* Reduces opacity to show it's inactive */
 }
 

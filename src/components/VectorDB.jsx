@@ -70,6 +70,7 @@ const VectorDB = () => {
       // Log the pdfFiles when state changes
       useEffect(() => {
         console.log("Updated pdfFiles:", pdfFiles);
+        
       }, [pdfFiles]); // This will run after pdfFiles state is updated
     
      
@@ -82,14 +83,47 @@ const VectorDB = () => {
     setPdfFile(ffileURL) // Debugging the generated blob URL
 
       };
-    
-    
-    
+      const handleCreateIndex = async () => {
+        if (pdfFiles.length === 0) {
+          alert('No PDF files to index!');
+          return;
+        }
+      
+        if (selectedTechniques.length === 0) {
+          alert('No techniques selected!');
+          return;
+        }
+      
+        try {
+          const response = await fetch('http://localhost:3000/create_documents', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              pdfFiles,
+              selectedTechniques,
+            }),
+          });
+      
+          if (!response.ok) {
+            throw new Error(`Failed to create index: ${response.statusText}`);
+          }
+      
+          const data = await response.json();
+          alert(`Index created successfully! Server response: ${data.message}`);
+        } catch (error) {
+          console.error('Error creating index:', error);
+          alert(`Error creating index: ${error.message}`);
+        }
+      };
+      
+      
     const toggleTechnique = (techniqueName) => {
       setSelectedTechniques((prev) => {
         if (prev.includes(techniqueName)) {
           return prev.filter((item) => item !== techniqueName);
-        } else if (prev.length < 2) {
+        } else if (prev.length) {
           return [...prev, techniqueName];
         }
         return prev;
@@ -176,7 +210,7 @@ const VectorDB = () => {
         ) }
       </div>
 
-                    <button className='home-button'>Create Index</button>
+                    <button className='home-button' onClick={handleCreateIndex}>Create Index</button>
                 </div>
                 
             )}
