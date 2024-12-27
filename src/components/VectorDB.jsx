@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
 import { pdfjs } from 'pdfjs-dist';
 import "./Evaluation.css";
@@ -17,17 +17,17 @@ import samplePDF from '../data/237696_Chandrabhan_Gehlot_Resume.pdf';
 
 const VectorDB = () => {
   const techniquesData = [
-    { id: 1, name: "Hybrid_Search_Method", description: "Description for Technique 1" },
-    { id: 2, name: "HyDE_Search_Method", description: "Description for Technique 2" },
-    { id: 3, name: "Hierarchical_Search_Method", description: "Description for Technique 3" },
-    { id: 4, name: "SmallToBig_Parent_Child_Retriever", description: "Description for Technique 4" },
-    { id: 5, name: "SmallToBig_Sentence_Window_Retriever", description: "Description for Technique 5" },
-    { id: 6, name: "Similarity_Search_Method", description: "Description for Technique 6" },
-    { id: 7, name: "Similarity_Score_Search_Method", description: "Description for Technique 7" },
-    { id: 8, name: "Hybrid_Semantic_Search_With_Score", description: "Description for Technique 5" },
-    { id: 9, name: "Hybrid_Search_With_Score", description: "Description for Technique 6" },
-    { id: 10, name: "Vector_Search_With_Score", description: "Description for Technique 7" },
-    { id: 11, name: "Vector_Search_With_Score", description: "Description for Technique 7" },
+    { id: 1,index:1, name: "Hybrid_Search_Method", description: "Description for Technique 1" },
+    { id: 2,index:1, name: "HyDE_Search_Method", description: "Description for Technique 2" },
+    { id: 3,index:1, name: "Hierarchical_Search_Method", description: "Description for Technique 3" },
+    { id: 4, index:1,name: "SmallToBig_Parent_Child_Retriever", description: "Description for Technique 4" },
+    { id: 5,index:1, name: "SmallToBig_Sentence_Window_Retriever", description: "Description for Technique 5" },
+    { id: 6, index:1,name: "Similarity_Search_Method", description: "Description for Technique 6" },
+    { id: 7, index:1,name: "Similarity_Score_Search_Method", description: "Description for Technique 7" },
+    { id: 8, index:0,name: "Hybrid_Semantic_Search_With_Score", description: "Description for Technique 8" },
+    { id: 9, index:0,name: "Hybrid_Search_With_Score", description: "Description for Technique 9" },
+    { id: 10,index:0, name: "Vector_Search_With_Score", description: "Description for Technique 10" },
+    { id: 11,index:0, name: "Hybrid_Semantic_Search", description: "Description for Technique 11" },
  
   ];
   const defaultLayout = defaultLayoutPlugin();
@@ -38,16 +38,53 @@ const VectorDB = () => {
    const [pdfFile, setPdfFile] = useState(null);
     const [fileName, setFileName] = useState(null);
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (file && file.type === 'application/pdf') {
-            const fileUrl = URL.createObjectURL(file);
-            setPdfFile(fileUrl);
-            setFileName(file.name);
-        } else {
-            alert('Please upload a valid PDF file.');
+    const [pdfFiles, setPdfFiles] = useState([]); // Store multiple files
+
+   
+      const handleFileChange = (event) => {
+       
+        const files = Array.from(event.target.files); // Convert FileList to array
+      
+        // Filter out only PDF files
+        const pdfFilesOnly = files.filter(file => file.type === 'application/pdf');
+    
+        // If no PDF files selected, show alert
+        if (pdfFilesOnly.length === 0) {
+          alert("Please upload valid PDF files.");
+          return;
         }
-    };
+    
+        // Create file URL and name for each selected file
+        const newFiles = pdfFilesOnly.map(file => ({
+          fileObject: file,
+          name: file.name
+        }));
+        if (newFiles.length === newFiles.length) {
+          const ffileURL = URL.createObjectURL(newFiles[0].fileObject);
+          setPdfFile(ffileURL)
+        }
+        // Append new files to the existing state (pdfFiles)
+        setPdfFiles((prev) => [...prev, ...newFiles]);
+      };
+    
+      // Log the pdfFiles when state changes
+      useEffect(() => {
+        console.log("Updated pdfFiles:", pdfFiles);
+      }, [pdfFiles]); // This will run after pdfFiles state is updated
+    
+     
+      const handlePdfClick = (fileObject) => {
+        console.log("selectedpdf", fileObject);
+        
+       // Update the selected PDF file object for the viewer
+        const ffileURL = URL.createObjectURL(fileObject.fileObject); // Use the fileObject's file here
+    console.log("File URL: ", ffileURL);
+    setPdfFile(ffileURL) // Debugging the generated blob URL
+
+      };
+    
+    
+    
     const toggleTechnique = (techniqueName) => {
       setSelectedTechniques((prev) => {
         if (prev.includes(techniqueName)) {
@@ -91,11 +128,13 @@ const VectorDB = () => {
               <ul>
                 {techniquesData.map((technique) => (
                   <li key={technique.id}>
-                    <label>
+                    <label className={technique.index === 0 ? 'disabled-technique' : ''}>
                       <input
                         type="checkbox"
                         checked={selectedTechniques.includes(technique.name)}
                         onChange={() => toggleTechnique(technique.name)}
+                        disabled={technique.index === 0} // Disable if index is 0
+
                       />
                       {technique.name}
                     </label>
@@ -112,6 +151,7 @@ const VectorDB = () => {
                 <input
                     id="pdf-upload"
                     type="file"
+                    multiple
                     accept="application/pdf"
                     onChange={handleFileChange}
                     className="hidden-input"
@@ -123,27 +163,36 @@ const VectorDB = () => {
                 </div>
                 <div className='flex'>
                 <div className="file-info">
-                {fileName && (
+                {pdfFiles.length>0 && (
                 <div >
-                  <div className='flex'>
-                    <FaRegFilePdf style={{color:'#FF0000',marginTop:'2px'}}/>
-                    <p className='ml-1'>
-                        {fileName}
-                    </p>
+             <div className="pdf-list mt-4">
+        {pdfFiles.length > 0 && (
+          pdfFiles.map((pdf, index) => (
+            <div key={index} className="flex items-center mb-2" onClick={() => handlePdfClick(pdf)}>
+              <FaRegFilePdf style={{ color: "#FF0000", marginTop: "2px", cursor: "pointer" }} />
+              <p className="ml-1" style={{ cursor: "pointer" }}>{pdf.name}</p>
+            </div>
+          ))
+        ) }
+      </div>
 
-                    </div>
                     <button className='home-button'>Create Index</button>
                 </div>
                 
             )}
             </div>
             <div className="pdf-info ml-2">
-                {fileName && (
+                {pdfFile && (
                 <div >
-                  <div className='flex'>
+                  <div className='pdf-container'>
                   <Worker workerUrl="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js">
-                <Viewer fileUrl={pdfFile} plugins={[defaultLayout]} />
-            </Worker>
+                  {pdfFile ? (
+                    <Viewer fileUrl={(pdfFile)} plugins={[defaultLayout]} />
+                  ) : (
+                    <p>No PDF selected</p>
+                  )}
+                </Worker>
+
                   </div>
                 </div>
                 

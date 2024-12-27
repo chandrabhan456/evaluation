@@ -232,3 +232,14 @@ body {
   height: 650px; /* Custom height */
   
 }
+.pdf-container {
+  height: 641px; /* Adjust the height as needed */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #ccc; /* Optional: Add a border for better visualization */
+}
+.disabled-technique {
+  color: gray; /* Makes the text gray */
+  cursor: not-allowed; /* Changes the cursor to indicate it's disabled */
+  opacity: 0.6; /* Reduces opacity to show it's inactive */
+}
+
