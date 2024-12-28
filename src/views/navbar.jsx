@@ -24,7 +24,7 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
     >
       <span
         style={{ background: dotColor }}
-        className="absolute inline-flex rounded-full h-2 w-2 right-2 top-2"
+        className="absolute inline-flex rounded-full h-3 w-2 right-2 top-2"
       />
       {icon}
     </button>
@@ -61,7 +61,7 @@ const Navbar = () => {
     </div>
     
 
-      <div className='absolute inline-flex rounded-full h-2 w-2 right-60 top-2' > 
+      <div className='absolute inline-flex rounded-full h-2 w-2 right-60 top-4' > 
      {(activeMenu) &&
       <NavButton title="Chat" customFunc={() => handleClick('setting')}
     

@@ -122,12 +122,13 @@ body {
     flex-direction: column; /* To allow vertical alignment */
   }.input-container {
     position: relative;
+    display: flex;
     width: 100%;
     margin-bottom: 20px;
   }
   
   .question-input {
-    width: 100%;
+    width: 60%;
     height: 80px;
     padding: 10px;
     
@@ -138,7 +139,18 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding-right: 50px; /* Leave space for the send button */
   }
-  
+  .question-input1 {
+    width: 40%;
+    height: 80px;
+    padding: 10px;
+    
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    resize: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding-right: 50px; /* Leave space for the send button */
+  }
   .send-button {
     position: absolute;
     right: 10px;
@@ -243,4 +255,39 @@ body {
   opacity: 0.6; 
   /* Reduces opacity to show it's inactive */
 }
+.progress-bar-container {
+  margin-top: 20px;
+  width: 80%;
+  max-width: 400px;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
 
+.progress-bar {
+  height: 10px;
+  background-color: #4caf50;
+  width: 0;
+  animation: progress infinite linear forwards; /* Adjust duration as needed */
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.message-box {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #d4edda; /* Light green */
+  color: #155724; /* Dark green text */
+  border: 1px solid #c3e6cb; /* Border for light green box */
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}
