@@ -36,16 +36,10 @@ const Evaluation1 = () => {
     // Function to fetch data from the
     const fetchIndexes = async () => {
       try {
-        
-        const data = {
-          "Response": [
-              "Similarity_Search_Method",
-              "HyDE_Search_Method",
-              "Similarity_Score_Search_Method",
-              "Hybrid_Search_Method"
-          ],
-          "status": 200
-      }
+        const response = await fetch('http://localhost:3001/getindexes', {
+          method: 'GET'
+        });
+        const data = await response.json();
 
         if (data && data.status === 200) {
           const formattedData = data.Response.map((item, index) => ({
@@ -109,78 +103,35 @@ const Evaluation1 = () => {
       console.log(key, value);
     }
     try {
-      // const response = await fetch('http://localhost:3001/create_documents', {
-      //   method: 'POST',
-      //   body: requestBody, // Send FormData directly
-      // });
+      const response = await fetch('http://localhost:3001/llm_inference', {
+        method: 'POST',
+        body: requestBody, // Send FormData directly
+      });
+      console.log("DDDDDDDDDDD",response)
+      console.log('Response headers:', response.headers);  // Log the headers
+ 
+      const contentType = response.headers.get('Content-Type');
+      console.log('Content-Type:', contentType);
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        setApiResponce(data)
+        console.log('Response JSON:', data); // Log the parsed JSON response
+      } else {
+        const textResponse = await response.text();
+        setApiResponce(textResponse)
+        console.log('Received non-JSON response:', textResponse);
+      }
    
-      // if (!response.ok) {
-      //   throw new Error(`Failed to upload files: ${response.statusText}`);
-      // }
-   
-      const data = 
-                {
-                  "Response": {
-                      "answer_relevancy": {
-                          "0": 0.944727735443102,
-                    "1":0.232333333
-                      },
-                      "context_recall": {
-                          "0": 1.0,
-                    "1":2.0
-                      },
-                      "factual_correctness": {
-                          "0": 0.0,
-                    "1":0.1
-                      },
-                      "faithfulness": {
-                          "0": NaN,
-                    "1":NaN
-                      },
-                      "llm_context_precision_with_reference": {
-                          "0": 0.9999999999,
-                    "1":21322222222
-                      },
-                      "reference": {
-                          "0": "Property tax liability market value X assessment ratio exemptions X mill rate",
-                    "1": " tax liability market value X assessment ratio exemptions X mill rate"
-                      },
-                      "response": {
-                          "0": "\"Property tax liability = market value X assessment ratio - exemptions X mill rate\"",
-                    "1": "\" liability = market value X assessment ratio - exemptions X mill rate\""
-                      },
-                      "retrieved_contexts": {
-                          "0": [
-                              "Property tax liability market value X assessment ratio exemptions X mill rate 10/28/2015 6/n/nThe Property Tax is a Good Source of Local Revenues Consistent with ability to pay and benefits received principles of taxation Scores well on criteria for a good revenue source from the National Conference of State Legislatures Revenue Stability Neutrality Simplicity Equity Accountability 10/28/2015 5/n/nThe Property Tax is a Good Source of Local Revenues Consistent with ability to pay and benefits received principles of taxation Scores well on criteria for a good revenue source from the National Conference of State Legislatures Revenue Stability Neutrality Simplicity Equity Accountability 10/28/2015 5/n/nDetermining Property Tax Liabilities Defining and Valuing the Property Tax Base Component Frequency of Valuation Determining Valuation Percent Real Property 5 year assessment cycle Local government 70 Personal Property Annually Self reported 70 Motor Vehicles Annually OPM from NADA data 70 10/28/2015 7"
-                          ],
-                    "1": [
-                              "value X assessment ratio exemptions X mill rate 10/28/2015 6/n/nThe Property Tax is a Good Source of Local Revenues Consistent with ability to pay and benefits received principles of taxation Scores well on criteria for a good revenue source from the National Conference of State Legislatures Revenue Stability Neutrality Simplicity Equity Accountability 10/28/2015 5/n/nThe Property Tax is a Good Source of Local Revenues Consistent with ability to pay and benefits received principles of taxation Scores well on criteria for a good revenue source from the National Conference of State Legislatures Revenue Stability Neutrality Simplicity Equity Accountability 10/28/2015 5/n/nDetermining Property Tax Liabilities Defining and Valuing the Property Tax Base Component Frequency of Valuation Determining Valuation Percent Real Property 5 year assessment cycle Local government 70 Personal Property Annually Self reported 70 Motor Vehicles Annually OPM from NADA data 70 10/28/2015 7"
-                          ]
-                      },
-                      "semantic_similarity": {
-                          "0": 0.9459647666773591,
-                    "1":0.22222222222222222
-                      },
-                      "techniques": {
-                          "0": "HyDE_Search_Method",
-                    "1":"Hybrid_Search_Method"
-                      },
-                      "user_input": {
-                          "0": "what is the formula for the Property tax liability?",
-                          "1":"Hierarchical_Search_Method"
-                      }
-                  },
-                  "status": 200
-                }
-
-      setApiResponce(data)
+      if (!response.ok) {
+        throw new Error(`Failed to upload files: ${response.statusText}`);
+      }
       setMessage('Index created successfully!');
       
     } catch (error) {
       console.error('Error creating index:', error);
       setMessage(`Error creating index: ${error.message}`)
     }finally {
-      //setIsLoading(false);
+      setIsLoading(false);
     }
   };
  
@@ -199,36 +150,34 @@ console.log(apiResponseLength);
  console.log("updated Data",updatedData1[0])
  console.log("selected Techniques",selectedTechniques)  
 
- const formatApiResponse = (apiResponse) => {
-  if (!apiResponse || !apiResponse.Response) return [];
+ const formatApiResponse = (apiResponce) => {
+  if (!apiResponce || !apiResponce.Response) return [];
 
-  const responseData = apiResponse.Response;
+  const responseData = apiResponce.Response;
 
   // Create an array of objects representing each technique with the relevant data
   const formattedData = Object.keys(responseData.techniques).map((key) => {
     return {
-      name: responseData.techniques[key],
-      user_input: responseData.user_input[key],
-      answer_relevancy: responseData.answer_relevancy[key],
-      context_recall: responseData.context_recall[key],
-      factual_correctness: responseData.factual_correctness[key],
-      faithfulness: responseData.faithfulness[key] ?? "N/A", // Handle NaN
-      llm_context_precision_with_reference: responseData.llm_context_precision_with_reference[key],
-      reference: responseData.reference[key],
-      response: responseData.response[key],
-      retrieved_contexts: responseData.retrieved_contexts[key],
-      semantic_similarity: responseData.semantic_similarity[key],
+      name: responseData.techniques[key] ?? "N/A",
+      user_input: responseData.user_input[key] ?? "N/A",
+      answer_relevancy: responseData.answer_relevancy[key] ?? "N/A", // without GT
+      //context_recall: responseData.context_recall[key] ?? "N/A", // 3
+      //factual_correctness: responseData.factual_correctness[key] ?? "N/A", // 2
+      faithfulness: responseData.faithfulness[key] ?? "N/A", // Handle NaN // without GT
+      //llm_context_precision_with_reference: responseData.llm_context_precision_with_reference[key] ?? "N/A", // without GT
+      llm_context_precision_without_reference: responseData.llm_context_precision_without_reference[key] ?? "N/A", // without GT
+      reference: responseData.reference[key] ?? "N/A",
+      response: responseData.response[key]?? "N/A",
+      retrieved_contexts: responseData.retrieved_contexts[key] ?? "N/A",
+      //semantic_similarity: responseData.semantic_similarity[key] ?? "N/A", // 1
     };
   });
 
   return formattedData;
 };
  // Assuming you've already set the `apiResponse` state from the API
- const formattedData = formatApiResponse(apiResponce);
- 
- console.log(formattedData);
- 
-
+  const formattedData = formatApiResponse(apiResponce);
+  console.log(formattedData);
   
   return (
     <div className="app-container">
@@ -297,7 +246,7 @@ console.log(apiResponseLength);
             <FiSend className="send-icon" />
           </button>
         </div>
-      {!isLoading && (<div className="flex-container">
+      {isLoading && (<div className="flex-container">
          
               <div  className="dynamic-box">
               
@@ -311,7 +260,7 @@ console.log(apiResponseLength);
       
         </div>
       )}
-      {isLoading && (<div className="flex-container">
+      {!isLoading && (<div className="flex-container">
         {selectedTechniques.map((techniqueName, index) => {
         const technique = formattedData.find((t) => t.name === techniqueName);
         return (
@@ -320,13 +269,10 @@ console.log(apiResponseLength);
            <p ><strong>Reference:</strong> {technique?.reference}</p>
             <p className="mt-1"><strong>Response:</strong> {technique?.response}</p>
             <p className="mt-1"><strong>Retrieved Contexts:</strong> {technique?.retrieved_contexts?.join(', ')}</p>
-            <p className="mt-1"><strong>Semantic Similarity:</strong> {technique?.semantic_similarity}</p>
             <p className="mt-1"><strong>User Input:</strong> {technique?.user_input}</p>
             <p className="mt-1"><strong>Answer Relevancy:</strong> {technique?.answer_relevancy}</p>
-            <p className="mt-1"><strong>Context Recall:</strong> {technique?.context_recall}</p>
-            <p className="mt-1"><strong>Factual Correctness:</strong> {technique?.factual_correctness}</p>
             <p className="mt-1"><strong>Faithfulness:</strong> {technique?.faithfulness ?? "N/A"}</p>
-            <p className="mt-1"><strong>LLM Context Precision:</strong> {technique?.llm_context_precision_with_reference}</p>
+            <p className="mt-1"><strong>LLM Context Precision Without Reference:</strong> {technique?.llm_context_precision_without_reference}</p>
             
           </div>
         );
