@@ -119,7 +119,8 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     height: 101%; /* Set full height */
     display: flex; /* Ensure content inside is aligned properly */
-    flex-direction: column; /* To allow vertical alignment */
+    flex-direction: column;
+    text-align: left; /* To allow vertical alignment */
   }.input-container {
     position: relative;
     display: flex;
@@ -256,30 +257,38 @@ body {
   /* Reduces opacity to show it's inactive */
 }
 .progress-bar-container {
-  margin-top: 20px;
-  width: 80%;
-  max-width: 400px;
-  background-color: #f3f3f3;
-  border-radius: 5px;
-  overflow: hidden;
   position: relative;
+  width: 100%;
+  height: 10px; /* Adjust height as needed */
+  background-color: #f0f0f0; /* Background for the container */
+  overflow: hidden;
+  border-radius: 5px; /* Optional: rounded corners */
 }
 
 .progress-bar {
-  height: 10px;
-  background-color: #4caf50;
-  width: 0;
-  animation: progress infinite linear forwards; /* Adjust duration as needed */
+  position: absolute;
+  top: 0;
+  left: -100%; /* Start from outside the container */
+  width: 30%; /* Width of the animated bar */
+  height: 100%;
+  background-color: green; /* Bar color */
+  border-radius: 5px; /* Match container's rounding */
+  animation: progressMove 2s linear infinite; /* Animation */
 }
 
-@keyframes progress {
-  from {
-    width: 0;
+/* Animation keyframes */
+@keyframes progressMove {
+  0% {
+    left: -30%; /* Start outside on the left */
   }
-  to {
-    width: 100%;
+  50% {
+    left: 50%; /* Reach the center */
+  }
+  100% {
+    left: 100%; /* Move outside to the right */
   }
 }
+
 
 .message-box {
   margin-top: 20px;

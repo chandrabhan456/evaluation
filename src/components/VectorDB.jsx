@@ -319,7 +319,7 @@ const VectorDB = () => {
       {isLoading && (
         <div className="progress-bar-container">
           <div className="progress-bar"></div>
-          <p>Processing your request...</p>
+        
         </div>
       )} {!isLoading && message && (
         <p className="message-box">{message}</p> // Display the success or error message
