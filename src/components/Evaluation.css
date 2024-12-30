@@ -99,7 +99,7 @@ body {
     flex: 1;
     padding: 10px;
     overflow-y: auto;
-    margin-top: .4%;
+    margin-top: 0%;
   }
   
   .flex-container {
@@ -123,6 +123,7 @@ body {
     text-align: left; /* To allow vertical alignment */
   }.input-container {
     position: relative;
+   
     display: flex;
     width: 100%;
     margin-bottom: 20px;
@@ -132,7 +133,7 @@ body {
     width: 60%;
     height: 80px;
     padding: 10px;
-    
+    background-color: #f5f5f5;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -144,7 +145,7 @@ body {
     width: 40%;
     height: 80px;
     padding: 10px;
-    
+    background-color: #f5f5f5;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -300,3 +301,32 @@ body {
   font-size: 16px;
   text-align: center;
 }
+.evaluation-matrix {
+ 
+  background-color: #ddf2d1;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 30%; /* Set full height */
+  display: flex; /* Ensure content inside is aligned properly */
+  flex-direction: column;
+  text-align: left; /* To allow vertical alignment */
+}
+
+.home1-button {
+  background: linear-gradient(45deg, #007bff, #00d4ff);
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  width: 90%;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  height:100%;
+  text-decoration: none;
+  margin-left:18px;
+}
+

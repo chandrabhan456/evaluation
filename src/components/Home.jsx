@@ -18,29 +18,45 @@ const Home = () => {
     { id: 11, name: "Vector_Search_With_Score", description: "Description for Technique 7" },
  
   ];
+ 
+  const Intro = [
+    {
+      id: 1,
+      introduction:
+        "At RAG Search Insights, we are redefining the search experience by evaluating and optimizing Retrieval-Augmented Generation (RAG) techniques. Our work harnesses the power of Azure AI Search Service to explore and implement innovative approaches for faster, more accurate, and context-rich search results.",
+    },
+  ];
 
-  const [selectedTechniques, setSelectedTechniques] = useState([techniquesData[0].name, techniquesData[1].name]);
-  const [userInput, setUserInput] = useState("");
- const {home,setHome,playgrond,setPlaygrond,vertorDB,setVectorDB} = useStateContext();
-  const toggleTechnique = (techniqueName) => {
-    setSelectedTechniques((prev) => {
-      if (prev.includes(techniqueName)) {
-        return prev.filter((item) => item !== techniqueName);
-      } else if (prev.length < 2) {
-        return [...prev, techniqueName];
-      }
-      return prev;
-    });
-  };
+  const data = [
+    {
+      id: 1,
+      OurExpertise: {
+        "Hybrid Search":
+          "Merging the power of vector and keyword searches for unparalleled precision.",
+        "Vector Search": "Leveraging embeddings for deep semantic understanding.",
+        "Keyword Search": "Delivering quick, targeted results with high precision.",
+        "Hierarchical Indexing Search":
+          "Organizing data for scalable and efficient query handling.",
+        "Hypothetical Document Embedding (HyDE)":
+          "Generating contextually rich answers with advanced hypothetical embeddings.",
+        "Parent-Child Retriever":
+          "Structuring results to retain contextual relationships between data entities.",
+        "Sentence Window Search":
+          "Focusing on granular text fragments for pinpoint accuracy.",
+      },
+      WhyChoosen:
+        "Our platform offers:\n\nComprehensive Analysis: Evaluating latency, response times, and overall performance of various search techniques.\nTailored Solutions: Customizing search strategies based on use cases and industries.\nInnovative Benchmarking: Unveiling insights that help you make data-driven decisions for search optimizations.\nPractical Guidance: Empowering developers and knowledge seekers with tools to practice and implement RAG techniques effectively.",
+      OurMission:
+        "To simplify complex search methodologies and enable businesses to unlock the true potential of their data. We aim to bridge the gap between cutting-edge AI advancements and real-world applications, transforming how we interact with information.",
+      Innovation:
+        "Explore the world of smarter search. Join us as we revolutionize how knowledge is discovered and retrieved.",
+    },
+  ];
+  const {home,setHome,playgrond,setPlaygrond,vertorDB,setVectorDB} = useStateContext();
+  
+  
 
-  const handleInputChange = (event) => {
-    setUserInput(event.target.value);
-  };
-
-  const handleSendClick = () => {
-    console.log("Message sent:", userInput);
-    setUserInput(""); // Clear input after sending
-  };
+  
 
   return (
     <div className="app-container">
@@ -72,35 +88,115 @@ const Home = () => {
                           ><button className="home-button ">Playground</button></NavLink>
         <button className="home-button ">Library</button>
         </div>
-        <ul>
+       
+        {/* <ul>
           {techniquesData.map((technique) => (
             <li key={technique.id}>
               <label>
-                <input
-                  type="checkbox"
-                  checked={selectedTechniques.includes(technique.name)}
-                  onChange={() => toggleTechnique(technique.name)}
-                />
+              
                 {technique.name}
               </label>
             </li>
           ))}
-        </ul>
+        </ul> */}
+        </div>
+        <div>
+        <p className="mt-5 text-3xl"><strong>RAG Search Techniques - Evaluation Tool</strong></p>
+        <p className=" mt-0 text-xs text-blue-500 button-container home1-button" style={{marginTop:"75%"}}>About Us</p>
+        <p className=" mt-2 text-xs text-blue-500 button-container home1-button" style={{textAlign:'center'}}>Contact Us</p>
+        <p className="mt-2 text-xs text-blue-500 button-container home1-button" style={{textAlign:'left'}}>Refrences</p>
+        <p className="mt-2 text-xs text-blue-500 button-container home1-button" style={{textAlign:'left'}}>Documentation</p>
         </div>
       </div>
 
       <div className="content">
         
         <div className="flex-container">
-          {selectedTechniques.map((techniqueName, index) => {
-            const technique = techniquesData.find((t) => t.name === techniqueName);
-            return (
-              <div key={index} className="dynamic-box">
-                <h4>{technique.name}</h4>
-                <p>{technique.description}</p>
+        
+              <div  className="dynamic-box">
+              <div style={{ backgroundColor: "#f5f5f5", fontFamily: "Arial, sans-serif", padding: "20px" }}>
+      {/* Introduction Container */}
+      <div
+        style={{
+          width: "100%",
+          padding: "20px",
+          backgroundColor: "#f5f5f5",
+          border: "1px solid #ccc",
+          marginBottom: "20px",
+          borderRadius: "5px",
+        }}
+      >
+        <h1 className="text-xl text-blue-600">Introduction</h1>
+        <p>{Intro[0].introduction}</p>
+      </div>
+
+      {/* Grid of Four Equal Boxes */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: "20px",
+        }}
+      >
+        {/* Our Expertise */}
+        <div
+          style={{
+            border: "1px solid #ccc",
+            padding: "20px",
+            borderRadius: "5px",
+          }}
+        >
+          <h2 className="text-xl text-blue-600">Our Expertise</h2>
+          <p className="mt-2">We specialize in applying and benchmarking advanced RAG search methodologies</p>
+          <ul>
+            {Object.entries(data[0].OurExpertise).map(([key, value], index) => (
+              <li key={index}>
+                <strong>{key}:</strong> {value}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Why Choose Us */}
+        <div
+          style={{
+            border: "1px solid #ccc",
+            padding: "20px",
+            borderRadius: "5px",
+          }}
+        >
+          <h2 className="text-xl text-blue-600">Why Choose Us?</h2>
+          <p className="mt-2">{data[0].WhyChoosen}</p>
+        </div>
+
+        {/* Our Mission */}
+        <div
+          style={{
+            border: "1px solid #ccc",
+            padding: "20px",
+            borderRadius: "5px",
+          }}
+        >
+          <h2 className="text-xl text-blue-600">Our Mission</h2>
+          <p className="mt-2">{data[0].OurMission}</p>
+        </div>
+
+        {/* Innovation */}
+        <div
+          style={{
+            border: "1px solid #ccc",
+            padding: "20px",
+            borderRadius: "5px",
+          }}
+        >
+          <h2 className="text-xl text-blue-600">Innovation</h2>
+          <p className="mt-2">{data[0].Innovation}</p>
+        </div>
+      </div>
+    </div>
+  
               </div>
-            );
-          })}
+        
         </div>
       </div>
     </div>

@@ -36,11 +36,20 @@ const Evaluation1 = () => {
     // Function to fetch data from the
     const fetchIndexes = async () => {
       try {
-        const response = await fetch('http://localhost:3001/getindexes', {
-          method: 'GET'
-        });
-        const data = await response.json();
+        // const response = await fetch('http://localhost:3001/getindexes', {
+        //   method: 'GET'
+        // });
 
+        //const data = await response.json();
+        const data ={
+          "Response": [
+              "Similarity_Search_Method",
+              "HyDE_Search_Method",
+              "Similarity_Score_Search_Method",
+              "Hybrid_Search_Method"
+          ],
+          "status": 200
+      }
         if (data && data.status === 200) {
           const formattedData = data.Response.map((item, index) => ({
             id: index + 1, // Generate an ID starting from 1
@@ -114,17 +123,18 @@ const Evaluation1 = () => {
       console.log('Content-Type:', contentType);
       if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
-        setApiResponce(data)
+        //setApiResponce(data)
         console.log('Response JSON:', data); // Log the parsed JSON response
       } else {
         const textResponse = await response.text();
-        setApiResponce(textResponse)
+        //setApiResponce(textResponse)
         console.log('Received non-JSON response:', textResponse);
       }
-   
+      
       if (!response.ok) {
         throw new Error(`Failed to upload files: ${response.statusText}`);
       }
+     
       setMessage('Index created successfully!');
       
     } catch (error) {
@@ -246,6 +256,13 @@ console.log(apiResponseLength);
             <FiSend className="send-icon" />
           </button>
         </div>
+        {(!message&&!isLoading) && (<div className="flex-container">
+         
+         <div  className="dynamic-box">
+  
+   </div>
+   </div>
+ )}
       {isLoading && (<div className="flex-container">
          
               <div  className="dynamic-box">
@@ -266,14 +283,17 @@ console.log(apiResponseLength);
         return (
           <div key={index} className="dynamic-box">
             <h4 style={{marginTop:'-10px'}} className="text-blue-400">{technique?.name}</h4>
-           <p ><strong>Reference:</strong> {technique?.reference}</p>
-            <p className="mt-1"><strong>Response:</strong> {technique?.response}</p>
-            <p className="mt-1"><strong>Retrieved Contexts:</strong> {technique?.retrieved_contexts?.join(', ')}</p>
-            <p className="mt-1"><strong>User Input:</strong> {technique?.user_input}</p>
-            <p className="mt-1"><strong>Answer Relevancy:</strong> {technique?.answer_relevancy}</p>
-            <p className="mt-1"><strong>Faithfulness:</strong> {technique?.faithfulness ?? "N/A"}</p>
-            <p className="mt-1"><strong>LLM Context Precision Without Reference:</strong> {technique?.llm_context_precision_without_reference}</p>
-            
+          
+            <p className="mt-1 text-lg"><strong className="text-lg">Response:</strong> {technique?.response}</p>
+            <p className="mt-1 text-lg"><strong className="text-lg">Retrieved Contexts:</strong> {technique?.retrieved_contexts?.join(', ')}</p>
+            <p className="mt-1 text-lg"><strong className="text-lg"> Reference:</strong> {technique?.reference}</p>
+            <p className="mt-7"><strong className="text-xl mt-7">Matrix Evaluation:</strong></p>
+            <div className="evaluation-matrix mt-1">
+              
+            <p className="mt-1 tect-lg"><strong className="text-lg">Answer Relevancy:</strong> {technique?.answer_relevancy}</p>
+            <p className="mt-1 text-lg"><strong className="text-lg">Faithfulness:</strong> {technique?.faithfulness ?? "N/A"}</p>
+            <p className="mt-1 text-lg"><strong className="text-lg">LLM Context Precision Without Reference:</strong> {technique?.llm_context_precision_without_reference}</p>
+            </div>
           </div>
         );
       })}
