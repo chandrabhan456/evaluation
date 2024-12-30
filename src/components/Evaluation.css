@@ -226,10 +226,10 @@ body {
   font-size: 25px;
   color: #333;
   width:40%;
-  height: 650px; /* Custom height */
+  height: 700px; /* Custom height */
   display: flex;
-  
-  overflow: hidden; /* Hide content if it overflows the height */
+  overflow-x: scroll;
+ /* Hide content if it overflows the height */
   text-overflow: ellipsis; /* Add ellipsis for long text */
   white-space: nowrap; /* Prevent wrapping */
 }
@@ -243,11 +243,11 @@ body {
   font-size: 25px;
   color: #333;
   width:60%;
-  height: 650px; /* Custom height */
+  height: 700px; /* Custom height */
   
 }
 .pdf-container {
-  height: 641px; /* Adjust the height as needed */
+  height: 688px; /* Adjust the height as needed */
   overflow-y: auto; /* Enable vertical scrolling */
   border: 1px solid #ccc; /* Optional: Add a border for better visualization */
 }

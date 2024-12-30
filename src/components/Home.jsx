@@ -3,6 +3,13 @@ import "./Evaluation.css";
 import { FiSend } from "react-icons/fi";
 import { useStateContext } from '../contexts/ContextProvider';
 import { Link, NavLink } from 'react-router-dom';
+import { SiOpenai } from "react-icons/si";
+import azureimg from '../data/azuresearchAI.png';
+import ragimg from '../data/ragimage.png';
+import { SiFlask } from "react-icons/si";
+import { GiArtificialIntelligence } from "react-icons/gi";
+
+
 const Home = () => {
   const techniquesData = [
     { id: 1, name: "Hybrid_Search_Method", description: "Description for Technique 1" },
@@ -101,11 +108,11 @@ const Home = () => {
         </ul> */}
         </div>
         <div>
-        <p className="mt-5 text-3xl"><strong>RAG Search Techniques - Evaluation Tool</strong></p>
-        <p className=" mt-0 text-xs text-blue-500 button-container home1-button" style={{marginTop:"75%"}}>About Us</p>
+        <p className="mt-5 text-3xl"><strong>RAG Search Techniques Evaluation Tool</strong></p>
+        {/* <p className=" mt-0 text-xs text-blue-500 button-container home1-button" style={{marginTop:"75%"}}>About Us</p>
         <p className=" mt-2 text-xs text-blue-500 button-container home1-button" style={{textAlign:'center'}}>Contact Us</p>
         <p className="mt-2 text-xs text-blue-500 button-container home1-button" style={{textAlign:'left'}}>Refrences</p>
-        <p className="mt-2 text-xs text-blue-500 button-container home1-button" style={{textAlign:'left'}}>Documentation</p>
+        <p className="mt-2 text-xs text-blue-500 button-container home1-button" style={{textAlign:'left'}}>Documentation</p> */}
         </div>
       </div>
 
@@ -193,7 +200,23 @@ const Home = () => {
           <p className="mt-2">{data[0].Innovation}</p>
         </div>
       </div>
+      <div className="mt-10 flex"><SiOpenai style={{height:"45px",width:"45px",color:'black'}} />
+      <SiFlask style={{height:"45px",width:"100px",color:'black'}} />
+      <GiArtificialIntelligence style={{height:"45px",width:"80px",color:'black'}} />  
+      <img
+          style={{width:"100px",marginLeft:"-5px",marginTop:'-8px'}}
+          src={azureimg}
+          alt="nttlogo"
+        />
+      <img
+          style={{width:"100px",marginLeft:"-5px",marginTop:'-8px'}}
+          src={ragimg}
+          alt="ragimg"
+        />
+   
+      </div>
     </div>
+
   
               </div>
         

@@ -13,7 +13,6 @@ import { IoIosClose } from "react-icons/io";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { version as pdfjsVersion } from "pdfjs-dist/package.json";
-import samplePDF from "../data/237696_Chandrabhan_Gehlot_Resume.pdf";
 
 const VectorDB = () => {
   const techniquesData = [
@@ -85,7 +84,7 @@ const VectorDB = () => {
     },
   ];
   const defaultLayout = defaultLayoutPlugin();
-  const pdfUrl = { samplePDF };
+ 
 
   const [selectedTechniques, setSelectedTechniques] = useState([
     techniquesData[0].name,
