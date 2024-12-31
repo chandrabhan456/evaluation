@@ -8,7 +8,10 @@ import azureimg from '../data/azuresearchAI.png';
 import ragimg from '../data/ragimage.png';
 import { SiFlask } from "react-icons/si";
 import { GiArtificialIntelligence } from "react-icons/gi";
-
+import abtimg from '../data/About_Us.png';
+import docuimg from '../data/documentation.png';
+import outlookimg from '../data/outlook_icon.jpg';
+import rafimg from '../data/reference.png';
 
 const Home = () => {
   const techniquesData = [
@@ -109,10 +112,29 @@ const Home = () => {
         </div>
         <div>
         <p className="mt-5 text-3xl"><strong>RAG Search Techniques Evaluation Tool</strong></p>
-        {/* <p className=" mt-0 text-xs text-blue-500 button-container home1-button" style={{marginTop:"75%"}}>About Us</p>
-        <p className=" mt-2 text-xs text-blue-500 button-container home1-button" style={{textAlign:'center'}}>Contact Us</p>
-        <p className="mt-2 text-xs text-blue-500 button-container home1-button" style={{textAlign:'left'}}>Refrences</p>
-        <p className="mt-2 text-xs text-blue-500 button-container home1-button" style={{textAlign:'left'}}>Documentation</p> */}
+        <div className="mt-[115%] flex justify-center">
+      <img
+          style={{width:"40px",marginTop:'-8px'}}
+          src={abtimg}
+          alt="nttlogo"
+        />
+      <img
+          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
+          src={rafimg}
+          alt="ragimg"
+        />
+          <img
+          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
+          src={outlookimg}
+          alt="nttlogo"
+        />
+      <img
+          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
+          src={docuimg}
+          alt="ragimg"
+        />
+   
+      </div>
         </div>
       </div>
 
@@ -200,7 +222,7 @@ const Home = () => {
           <p className="mt-2">{data[0].Innovation}</p>
         </div>
       </div>
-      <div className="mt-10 flex"><SiOpenai style={{height:"45px",width:"45px",color:'black'}} />
+      <div className="mt-10 flex justify-end"><SiOpenai style={{height:"45px",width:"45px",color:'black'}} />
       <SiFlask style={{height:"45px",width:"100px",color:'black'}} />
       <GiArtificialIntelligence style={{height:"45px",width:"80px",color:'black'}} />  
       <img

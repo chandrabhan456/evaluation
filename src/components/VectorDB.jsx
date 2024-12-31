@@ -13,7 +13,10 @@ import { IoIosClose } from "react-icons/io";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { version as pdfjsVersion } from "pdfjs-dist/package.json";
-
+import abtimg from '../data/About_Us.png';
+import docuimg from '../data/documentation.png';
+import outlookimg from '../data/outlook_icon.jpg';
+import rafimg from '../data/reference.png';
 const VectorDB = () => {
   const techniquesData = [
     {
@@ -270,6 +273,29 @@ const VectorDB = () => {
             ))}
           </ul>
         </div>
+        <div className="mt-[10%] flex justify-center">
+      <img
+          style={{width:"40px",marginTop:'-8px'}}
+          src={abtimg}
+          alt="nttlogo"
+        />
+      <img
+          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
+          src={rafimg}
+          alt="ragimg"
+        />
+          <img
+          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
+          src={outlookimg}
+          alt="nttlogo"
+        />
+      <img
+          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
+          src={docuimg}
+          alt="ragimg"
+        />
+   
+      </div>
       </div>
 
       <div className="content">
@@ -316,8 +342,8 @@ const VectorDB = () => {
         {isLoading ? 'Processing...' : 'Create Index'}
       </button>
       {isLoading && (
-        <div className="progress-bar-container">
-          <div className="progress-bar"></div>
+        <div className="progress-bar-container mt-3">
+          <div className="progress-bar "></div>
         
         </div>
       )} {!isLoading && message && (

@@ -5,6 +5,10 @@ import { useStateContext } from '../contexts/ContextProvider';
 import { Link, NavLink } from 'react-router-dom';
 import Select from 'react-select';
 import React, { useState, useEffect, useRef } from 'react';
+import abtimg from '../data/About_Us.png';
+import docuimg from '../data/documentation.png';
+import outlookimg from '../data/outlook_icon.jpg';
+import rafimg from '../data/reference.png';
 const Evaluation1 = () => {
   const techniquesData1 = [
     { id: 1, name: "Hybrid_Search_Method", description: "Description for Technique 1" },
@@ -235,6 +239,29 @@ console.log(apiResponseLength);
           ))}
         </ul>
         </div>
+        <div className="mt-[90%] flex justify-center">
+      <img
+          style={{width:"40px",marginTop:'-8px'}}
+          src={abtimg}
+          alt="nttlogo"
+        />
+      <img
+          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
+          src={rafimg}
+          alt="ragimg"
+        />
+          <img
+          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
+          src={outlookimg}
+          alt="nttlogo"
+        />
+      <img
+          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
+          src={docuimg}
+          alt="ragimg"
+        />
+   
+      </div>
       </div>
 
       <div className="content">
@@ -277,7 +304,7 @@ console.log(apiResponseLength);
       
         </div>
       )}
-      {!isLoading && (<div className="flex-container">
+      {(message&&!isLoading) && (<div className="flex-container">
         {selectedTechniques.map((techniqueName, index) => {
         const technique = formattedData.find((t) => t.name === techniqueName);
         return (
