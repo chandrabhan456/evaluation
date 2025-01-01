@@ -1,5 +1,6 @@
 body{
-    background: linear-gradient(135deg, #1B8AF1, #B58DED);
+    background-image: url('../data/Media.png');
+  
     height: 100vh;
     width: 100%;
     text-align: center;
@@ -34,10 +35,15 @@ form{
     font-size: 20px;
     border: none;
     width: 80%;
+    background-color: transparent;
 }
-
+.text_input::placeholder {
+    color: white; /* Change this to your desired placeholder color */
+    opacity: 1; /* Ensures full visibility */
+     /* Optional: To style the placeholder */
+}
 .btn{
-    margin-top: 28px;
+    margin-top: 75px;
     width: 165px;
     height: 60px;
     border-radius: 30px;
@@ -52,7 +58,7 @@ form{
 
 .login{
     display: inline-block;
-    background: #FFFFFF;
+    background: transparent;
     width: 434px;
     height: 700px;
     margin-top: 5%;
@@ -67,4 +73,24 @@ form{
     cursor: pointer;
     display: block;
     text-decoration: none;
+}
+.transparent-input {
+    background-color: #1a1f27; /* For username input */
+    color: #ffffff; /* White text */
+    border: 1px solid #232b35; /* Subtle border */
+    border-radius: 10px; /* Rounded edges */
+    outline: none;
+    padding: 10px;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.19);
+}
+ 
+.transparent-input:focus {
+    border-color: #00e0ff; /* Neon cyan glow on focus */
+    box-shadow: 0 0 8px #00e0ff; /* Glowing effect */
+}
+ 
+.transparent-input.password {
+    background-color: #232b35; /* For password input */
 }

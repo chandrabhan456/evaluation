@@ -112,7 +112,7 @@ const Home = () => {
         </div>
         <div>
         <p className="mt-5 text-3xl"><strong>RAG Search Techniques Evaluation Tool</strong></p>
-        <div className="mt-[115%] flex justify-center">
+        <div className="mt-[135%] flex justify-center">
       <img
           style={{width:"40px",marginTop:'-8px'}}
           src={abtimg}

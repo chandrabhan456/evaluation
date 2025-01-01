@@ -3,6 +3,7 @@ import { emailValidator, passwordValidator } from '../components/regexValidators
 import {useNavigate} from "react-router-dom"
 import { useStateContext } from "../contexts/ContextProvider";
 import "./Login.css";
+import bgimg from '../data/Media.png';
 
 const Login = () => {
     const { login1, setlogin1 } = useStateContext();
@@ -44,10 +45,10 @@ const Login = () => {
 		
 	return (
 		
-	  <div className="login">
+	  <div className="login" >
 	<h4>Login</h4>
 	<form onSubmit={formSubmitter}>
-	  <div className="text_area">
+	  <div className="transparent-input">
 		<input
 		type="text"
 		name="email"
@@ -57,7 +58,7 @@ const Login = () => {
 
 		/>
 	  </div>
-	  <div className="text_area">
+	  <div className="mt-2 transparent-input">
 		<input
 		 type="password"
 		 name="password"
@@ -75,8 +76,9 @@ const Login = () => {
 
 	  >Login</button>
 	</form>
-	<a className="link" href="/signup">Sign Up</a>
+	
   </div>
+  
 )
 };
 

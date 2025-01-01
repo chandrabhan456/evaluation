@@ -5,6 +5,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 import { Link, NavLink } from 'react-router-dom';
 import Select from 'react-select';
 import React, { useState, useEffect, useRef } from 'react';
+
 import abtimg from '../data/About_Us.png';
 import docuimg from '../data/documentation.png';
 import outlookimg from '../data/outlook_icon.jpg';
@@ -36,6 +37,9 @@ const Evaluation1 = () => {
   const [message, setMessage] = useState(''); 
  
   const [isLoading, setIsLoading] = useState(false);
+  const [techname, setTechName] = useState("")
+  let formattedData
+
   useEffect(() => {
     // Function to fetch data from the
     const fetchIndexes = async () => {
@@ -44,7 +48,7 @@ const Evaluation1 = () => {
         //   method: 'GET'
         // });
 
-        //const data = await response.json();
+        // const data = await response.json();
         const data ={
           "Response": [
               "Similarity_Search_Method",
@@ -54,6 +58,7 @@ const Evaluation1 = () => {
           ],
           "status": 200
       }
+        
         if (data && data.status === 200) {
           const formattedData = data.Response.map((item, index) => ({
             id: index + 1, // Generate an ID starting from 1
@@ -82,16 +87,16 @@ const Evaluation1 = () => {
       name: item.name,
       description: item.description,
     }));
- const toggleTechnique = (techniqueName) => {
+    const toggleTechnique = (techniqueName) => {
       setSelectedTechniques((prev) => {
         if (prev.includes(techniqueName)) {
-          return prev.filter((item) => item !== techniqueName);
-        } else if (prev.length < 2) {
-          return [...prev, techniqueName];
+          return prev.filter((item) => item !== techniqueName); // Remove if already selected
+        } else {
+          return [...prev, techniqueName]; // Add technique
         }
-        return prev;
       });
     };
+    
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
   };
@@ -127,11 +132,11 @@ const Evaluation1 = () => {
       console.log('Content-Type:', contentType);
       if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
-        //setApiResponce(data)
+        setApiResponce(data)
         console.log('Response JSON:', data); // Log the parsed JSON response
       } else {
         const textResponse = await response.text();
-        //setApiResponce(textResponse)
+        setApiResponce(textResponse)
         console.log('Received non-JSON response:', textResponse);
       }
       
@@ -151,8 +156,8 @@ const Evaluation1 = () => {
  
   useEffect(() => {
   console.log("chandrabhan")
-   
-  }, [apiResponce]); 
+  
+  }, [apiResponce]);
  
    console.log(apiResponce);
    const apiResponseLength = apiResponce ? Object.keys(apiResponce).length : 0;
@@ -168,6 +173,7 @@ console.log(apiResponseLength);
   if (!apiResponce || !apiResponce.Response) return [];
 
   const responseData = apiResponce.Response;
+  console.log("OOOOOOO", responseData.Evaluation_Latency)
 
   // Create an array of objects representing each technique with the relevant data
   const formattedData = Object.keys(responseData.techniques).map((key) => {
@@ -175,24 +181,63 @@ console.log(apiResponseLength);
       name: responseData.techniques[key] ?? "N/A",
       user_input: responseData.user_input[key] ?? "N/A",
       answer_relevancy: responseData.answer_relevancy[key] ?? "N/A", // without GT
-      //context_recall: responseData.context_recall[key] ?? "N/A", // 3
-      //factual_correctness: responseData.factual_correctness[key] ?? "N/A", // 2
+      answer_latency: responseData.Answer_Latency[key] ?? "N/A", // 3
+      context_latency: responseData.Context_Latency[key] ?? "N/A", // 2
       faithfulness: responseData.faithfulness[key] ?? "N/A", // Handle NaN // without GT
-      //llm_context_precision_with_reference: responseData.llm_context_precision_with_reference[key] ?? "N/A", // without GT
       llm_context_precision_without_reference: responseData.llm_context_precision_without_reference[key] ?? "N/A", // without GT
       reference: responseData.reference[key] ?? "N/A",
       response: responseData.response[key]?? "N/A",
       retrieved_contexts: responseData.retrieved_contexts[key] ?? "N/A",
-      //semantic_similarity: responseData.semantic_similarity[key] ?? "N/A", // 1
     };
   });
 
   return formattedData;
 };
  // Assuming you've already set the `apiResponse` state from the API
-  const formattedData = formatApiResponse(apiResponce);
-  console.log(formattedData);
-  
+ const formatApiResponseNOGT = (apiResponce) => {
+  if (!apiResponce || !apiResponce.Response) return [];
+
+  const responseData = apiResponce.Response;
+  console.log("OOOOOOO", responseData.Evaluation_Latency)
+
+  // Create an array of objects representing each technique with the relevant data
+  const formattedData = Object.keys(responseData.techniques).map((key) => {
+    return {
+      name: responseData.techniques[key] ?? "N/A",
+      user_input: responseData.user_input[key] ?? "N/A",
+      answer_relevancy: responseData.answer_relevancy[key] ?? "N/A", // without GT
+      answer_latency: responseData.Answer_Latency[key] ?? "N/A", // 3
+      context_latency: responseData.Context_Latency[key] ?? "N/A", // 2
+      faithfulness: responseData.faithfulness[key] ?? "N/A", // Handle NaN // without GT
+      llm_context_precision_with_reference: responseData.llm_context_precision_with_reference[key] ?? "N/A", // without GT
+      reference: responseData.reference[key] ?? "N/A",
+      response: responseData.response[key]?? "N/A",
+      retrieved_contexts: responseData.retrieved_contexts[key] ?? "N/A",
+      semantic_similarity: responseData.semantic_similarity[key] ?? "N/A", // 1
+      context_recall: responseData.context_recall[key] ?? "N/A",
+      factual_correctness: responseData.factual_correctness[key] ?? "N/A", // 1
+    };
+  });
+
+  return formattedData;
+};
+if (message && userInput1 === "") {
+  formattedData = [];
+  console.log("message",message) // Set formattedData to empty when message exists and input is empty
+} else if (userInput1 === "") {
+  console.log("formattedData", formattedData);
+  formattedData = formatApiResponse(apiResponce);
+} else {
+  formattedData = formatApiResponseNOGT(apiResponce);
+}
+
+ var myBoolean = true; // I'm a boolean
+if(selectedTechniques.length===0){
+  myBoolean = false
+ 
+}
+console.log("Boolean",myBoolean)
+ console.log("GroundTruth",formattedData.length);
   return (
     <div className="app-container">
      
@@ -221,7 +266,7 @@ console.log(apiResponseLength);
                                          
                                          
                                         ><button className="home-button ">Playground</button></NavLink>
-                      <button className="home-button ">Library</button>
+                      <button className="home-button ">EvalFrame</button>
         </div>
       
         <ul style={{marginTop:'30px'}}>
@@ -239,7 +284,7 @@ console.log(apiResponseLength);
           ))}
         </ul>
         </div>
-        <div className="mt-[90%] flex justify-center">
+        <div className="mt-[110%] flex justify-center">
       <img
           style={{width:"40px",marginTop:'-8px'}}
           src={abtimg}
@@ -290,6 +335,14 @@ console.log(apiResponseLength);
    </div>
    </div>
  )}
+   {(message&&!isLoading&&!myBoolean
+   ) && (<div className="flex-container">
+         
+         <div  className="dynamic-box">
+  
+   </div>
+   </div>
+ )}
       {isLoading && (<div className="flex-container">
          
               <div  className="dynamic-box">
@@ -304,7 +357,7 @@ console.log(apiResponseLength);
       
         </div>
       )}
-      {(message&&!isLoading) && (<div className="flex-container">
+      {(message&&!isLoading&&!userInput1) && (<div className="flex-container">
         {selectedTechniques.map((techniqueName, index) => {
         const technique = formattedData.find((t) => t.name === techniqueName);
         return (
@@ -313,13 +366,44 @@ console.log(apiResponseLength);
           
             <p className="mt-1 text-lg"><strong className="text-lg">Response:</strong> {technique?.response}</p>
             <p className="mt-1 text-lg"><strong className="text-lg">Retrieved Contexts:</strong> {technique?.retrieved_contexts?.join(', ')}</p>
-            <p className="mt-1 text-lg"><strong className="text-lg"> Reference:</strong> {technique?.reference}</p>
-            <p className="mt-7"><strong className="text-xl mt-7">Matrix Evaluation:</strong></p>
+            <p className="mt-1 text-lg"><strong className="text-lg"> Ground Truth:</strong> {technique?.reference}</p>
+            <p className="mt-7"><strong className="text-xl mt-7">LLM Evaluation Metrics:</strong></p>
             <div className="evaluation-matrix mt-1">
               
             <p className="mt-1 tect-lg"><strong className="text-lg">Answer Relevancy:</strong> {technique?.answer_relevancy}</p>
             <p className="mt-1 text-lg"><strong className="text-lg">Faithfulness:</strong> {technique?.faithfulness ?? "N/A"}</p>
+            <p className="mt-1 tect-lg"><strong className="text-lg">Answer Latency:</strong> {technique?.answer_latency}</p>
+            <p className="mt-1 text-lg"><strong className="text-lg">Context Latency:</strong> {technique?.context_latency ?? "N/A"}</p>
             <p className="mt-1 text-lg"><strong className="text-lg">LLM Context Precision Without Reference:</strong> {technique?.llm_context_precision_without_reference}</p>
+         
+            </div>
+          </div>
+        );
+      })}
+        </div>
+      )}
+           {(message&&!isLoading&&userInput1) && (<div className="flex-container">
+        {selectedTechniques.map((techniqueName, index) => {
+        const technique = formattedData.find((t) => t.name === techniqueName);
+        return (
+          <div key={index} className="dynamic-box">
+            <h4 style={{marginTop:'-10px'}} className="text-blue-400">{technique?.name}</h4>
+          
+            <p className="mt-1 text-lg"><strong className="text-lg">Response:</strong> {technique?.response}</p>
+            <p className="mt-1 text-lg"><strong className="text-lg">Retrieved Contexts:</strong> {technique?.retrieved_contexts?.join(', ')}</p>
+            <p className="mt-1 text-lg"><strong className="text-lg"> Ground Truth:</strong> {technique?.reference}</p>
+            <p className="mt-7"><strong className="text-xl mt-7">LLM Evaluation Metrics:</strong></p>
+            <div className="evaluation-matrix mt-1">
+              
+            <p className="mt-1 tect-lg"><strong className="text-lg">Answer Relevancy:</strong> {technique?.answer_relevancy}</p>
+            <p className="mt-1 text-lg"><strong className="text-lg">Faithfulness:</strong> {technique?.faithfulness ?? "N/A"}</p>
+            <p className="mt-1 tect-lg"><strong className="text-lg">Answer Latency:</strong> {technique?.answer_latency}</p>
+            <p className="mt-1 text-lg"><strong className="text-lg">Context Latency:</strong> {technique?.context_latency ?? "N/A"}</p>
+            <p className="mt-1 text-lg"><strong className="text-lg">LLM Context Precision With Reference:</strong> {technique?.llm_context_precision_with_reference}</p>
+            <p className="mt-1 text-lg"><strong className="text-lg">Context Recall:</strong> {technique?.context_recall ?? "N/A"}</p>
+            <p className="mt-1 text-lg"><strong className="text-lg">Factual Correctness:</strong> {technique?.factual_correctness}</p>
+            <p className="mt-1 text-lg"><strong className="text-lg">Semantic Similarity:</strong> {technique?.semantic_similarity}</p>
+         
             </div>
           </div>
         );

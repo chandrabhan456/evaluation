@@ -308,7 +308,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 30%; /* Set full height */
+  
   display: flex; /* Ensure content inside is aligned properly */
   flex-direction: column;
   text-align: left; /* To allow vertical alignment */
