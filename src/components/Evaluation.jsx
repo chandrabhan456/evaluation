@@ -44,20 +44,20 @@ const Evaluation1 = () => {
     // Function to fetch data from the
     const fetchIndexes = async () => {
       try {
-        // const response = await fetch('http://localhost:3001/getindexes', {
-        //   method: 'GET'
-        // });
+        const response = await fetch('http://localhost:3001/getindexes', {
+          method: 'GET'
+        });
 
-        // const data = await response.json();
-        const data ={
-          "Response": [
-              "Similarity_Search_Method",
-              "HyDE_Search_Method",
-              "Similarity_Score_Search_Method",
-              "Hybrid_Search_Method"
-          ],
-          "status": 200
-      }
+        const data = await response.json();
+      //   const data ={
+      //     "Response": [
+      //         "Similarity_Search_Method",
+      //         "HyDE_Search_Method",
+      //         "Similarity_Score_Search_Method",
+      //         "Hybrid_Search_Method"
+      //     ],
+      //     "status": 200
+      // }
         
         if (data && data.status === 200) {
           const formattedData = data.Response.map((item, index) => ({
@@ -221,7 +221,11 @@ console.log(apiResponseLength);
 
   return formattedData;
 };
-if (message && userInput1 === "") {
+if (message && userInput === "") {
+  formattedData = [];
+  console.log("message",message)
+}
+else if (message && userInput1 === "") {
   formattedData = [];
   console.log("message",message) // Set formattedData to empty when message exists and input is empty
 } else if (userInput1 === "") {
@@ -335,7 +339,7 @@ console.log("Boolean",myBoolean)
    </div>
    </div>
  )}
-   {(message&&!isLoading&&!myBoolean
+   {(!myBoolean
    ) && (<div className="flex-container">
          
          <div  className="dynamic-box">
