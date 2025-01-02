@@ -253,7 +253,7 @@ const VectorDB = () => {
             >
               <button className="home-button ">Playground</button>
             </NavLink>
-            <button className="home-button ">Library</button>
+            <button className="home-button ">EvalFrame</button>
           </div>
           <ul>
             {techniquesData.map((technique) => (
