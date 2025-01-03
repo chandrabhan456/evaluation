@@ -1,6 +1,8 @@
-body{
-    background-image: url('../data/Media.png');
-  
+body {
+    background-image: url('../data/Media.jpg');
+    background-repeat: no-repeat; /* Prevent repeating the image */
+    background-size: cover; /* Scale the image to cover the entire screen */
+    background-position: center; /* Center the image */
     height: 100vh;
     width: 100%;
     text-align: center;
@@ -43,7 +45,7 @@ form{
      /* Optional: To style the placeholder */
 }
 .btn{
-    margin-top: 75px;
+    margin-top: 35px;
     width: 165px;
     height: 60px;
     border-radius: 30px;
@@ -55,16 +57,18 @@ form{
     box-shadow: 0 4px 8px 0 rgba(181, 141, 237, 0.7), 0 6px 20px 0 rgba(181, 141, 237, 0.9);
     cursor: pointer;
 }
-
-.login{
-    display: inline-block;
+.login {
+    position: fixed; /* Use fixed to place it relative to the viewport */
+    top: 50%; /* Center vertically */
+    right: 5%; /* Move it away from the right edge */
+    transform: translateY(-50%); /* Center it vertically using transform */
     background: transparent;
     width: 434px;
     height: 700px;
-    margin-top: 5%;
     border-radius: 22px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 
 .link{
     color: #0E4579;

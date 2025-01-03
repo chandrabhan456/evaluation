@@ -273,7 +273,7 @@ const VectorDB = () => {
             ))}
           </ul>
         </div>
-        <div className="mt-[30%] flex justify-center">
+        <div className="sidenavimg flex justify-center">
       <img
           style={{width:"40px",marginTop:'-8px'}}
           src={abtimg}

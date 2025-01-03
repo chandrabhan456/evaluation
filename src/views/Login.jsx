@@ -45,7 +45,7 @@ const Login = () => {
 		
 	return (
 		
-	  <div className="login" >
+	  <div className="login " >
 	<h4>Login</h4>
 	<form onSubmit={formSubmitter}>
 	  <div className="transparent-input">
