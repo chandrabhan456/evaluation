@@ -223,20 +223,23 @@ const Home = () => {
           <p className="mt-2">{data[0].Innovation}</p>
         </div>
       </div>
-      <div className="mt-10 flex justify-end"><SiOpenai style={{height:"45px",width:"45px",color:'black'}} />
-      <SiFlask style={{height:"45px",width:"100px",color:'black'}} />
-      <GiArtificialIntelligence style={{height:"45px",width:"80px",color:'black'}} />  
+      <div className="mt-5 flex justify-end"><div><SiOpenai style={{height:"45px",width:"45px",color:'black'}}className="ml-3" /><div className="tag1" >OpenAI</div></div>
+     <div> <SiFlask style={{height:"45px",width:"100px",color:'black'}} /><div className="tag1 ml-5" >Flask</div></div>
+     <div> <GiArtificialIntelligence style={{height:"45px",width:"80px",color:'black'}} className="ml-2"/>  <div className="tag1 ml-3" >Artificial Intelligence</div></div>
+     <div>
       <img
-          style={{width:"100px",marginLeft:"-5px",marginTop:'-8px'}}
+          style={{width:"70px",height:"55px",marginLeft:"20px",marginTop:'-8px'}}
           src={azureimg}
           alt="nttlogo"
         />
+        <div className="tag1 ml-5" >SearchAI</div></div>
+        <div>
       <img
-          style={{width:"100px",marginLeft:"-5px",marginTop:'-8px'}}
+          style={{width:"70px",height:"55px",marginLeft:"20px",marginTop:'-8px'}}
           src={ragimg}
           alt="ragimg"
         />
-   
+   <div className="tag1 ml-5" >RAG</div></div>
       </div>
     </div>
 

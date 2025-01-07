@@ -439,3 +439,27 @@ body {
 .toggle-switch.active .toggle-knob {
   transform: translateX(25px);
 }
+.tag1 {
+  background-color:  #007bff;
+  color:white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 12px;
+ 
+  width: 77px;
+  border: 1px solid #007bff;
+}
+
+.message-box1 {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #FF7F7F; /* Light green */
+  color: red; /* Dark green text */
+  border: 1px solid #c3e6cb; /* Border for light green box */
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  width:50%
+}
