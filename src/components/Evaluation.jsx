@@ -39,7 +39,10 @@ const Evaluation1 = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [techname, setTechName] = useState(false)
   let formattedData
-
+  const [isExisting, setIsExisting] = useState(true);
+   const toggleState = () => {
+     setIsExisting(!isExisting);
+   };
   useEffect(() => {
     // Function to fetch data from the
     const fetchIndexes = async () => {
@@ -436,8 +439,21 @@ console.log("Boolean",myBoolean)
                                         ><button className="home-button ">Playground</button></NavLink>
                       <button className="home-button ">EvalFrame</button>
         </div>
-      
-        <ul style={{marginTop:'30px'}}>
+        <div className="toggle-container justify-end mt-2">
+      {/* Label for "Create" */}
+      <span className="toggle-label ">RAGA</span>
+
+      {/* Toggle switch */}
+      <div
+        className={`toggle-switch ${isExisting ? "" : "active"}`}
+        onClick={toggleState}
+      >
+        <div className="toggle-knob"></div>
+      </div>
+       {/* Label for "Existing" */}
+       <span className="toggle-label">DeepEval</span>
+    </div>
+        <ul style={{marginTop:'0px'}}>
           {updatedData1.map((technique) => (
             <li key={technique.id}>
               <label>
@@ -452,7 +468,7 @@ console.log("Boolean",myBoolean)
           ))}
         </ul>
         </div>
-        <div className="sidenavimg flex justify-center" >
+       {/* <div className="sidenavimg flex justify-center" >
       <img
           style={{width:"40px",marginTop:'-8px'}}
           src={abtimg}
@@ -474,7 +490,7 @@ console.log("Boolean",myBoolean)
           alt="ragimg"
         />
    
-      </div>
+      </div>*/}
       </div>
 
       <div className="content">

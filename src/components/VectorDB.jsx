@@ -101,6 +101,10 @@ const VectorDB = () => {
   const [pdfFiles, setPdfFiles] = useState([]); // Store multiple files
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isExisting, setIsExisting] = useState(true);
+  const toggleState = () => {
+    setIsExisting(!isExisting);
+  };
   const handleFileChange = (event) => {
     console.log("pdffile",pdfFiles)
     const files = Array.from(event.target.files); // Convert FileList to array
@@ -255,6 +259,7 @@ const VectorDB = () => {
             </NavLink>
             <button className="home-button ">EvalFrame</button>
           </div>
+        
           <ul>
             {techniquesData.map((technique) => (
               <li key={technique.id}>
@@ -273,7 +278,7 @@ const VectorDB = () => {
             ))}
           </ul>
         </div>
-        <div className="sidenavimg flex justify-center">
+  {/*      <div className="sidenavimg flex justify-center">
       <img
           style={{width:"40px",marginTop:'-8px'}}
           src={abtimg}
@@ -295,9 +300,9 @@ const VectorDB = () => {
           alt="ragimg"
         />
    
+      </div>*/}
       </div>
-      </div>
-
+   {isExisting &&
       <div className="content">
         <div className="upload-container">
           <input
@@ -368,7 +373,9 @@ const VectorDB = () => {
             )}
           </div>
         </div>
-      </div>
+      </div>}
+      {!isExisting&&
+      <div className="index-info">chandrabhan</div>}
     </div>
   );
 };
