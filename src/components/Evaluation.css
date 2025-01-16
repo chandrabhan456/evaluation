@@ -139,8 +139,10 @@ body {
   }
   
   .dynamic-box {
-    flex: 1 1 calc(50% - 30px); /* Adjust the width dynamically */
+   /* flex: 1 1 calc(50% - 30px); /* Adjust the width dynamically */
+   flex:1;
     background-color: #f7f7f7;
+    box-sizing: border-box;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -254,7 +256,7 @@ body {
   font-size: 25px;
   color: #333;
   width:40%;
-  height: 700px; /* Custom height */
+  height:100vh; /* Custom height */
   display: flex;
   overflow-x: scroll;
  /* Hide content if it overflows the height */
@@ -288,11 +290,11 @@ body {
   font-size: 25px;
   color: #333;
   width:60%;
-  height: 700px; /* Custom height */
+  height: 100vh; /* Custom height */
   
 }
 .pdf-container {
-  height: 688px; /* Adjust the height as needed */
+  height: 98vh; /* Adjust the height as needed */
   overflow-y: auto; /* Enable vertical scrolling */
   border: 1px solid #ccc; /* Optional: Add a border for better visualization */
 }
@@ -381,7 +383,7 @@ body {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: -1%;
-  
+  align-items: stretch;
 }
 .sidenavimg{
  

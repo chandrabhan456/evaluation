@@ -12,6 +12,7 @@ import { IoIosClose } from "react-icons/io";
 // Default layout (optional, remove if not using)
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+import { BsFiletypeHtml } from "react-icons/bs";
 import { version as pdfjsVersion } from "pdfjs-dist/package.json";
 import abtimg from '../data/About_Us.png';
 import docuimg from '../data/documentation.png';
@@ -99,6 +100,7 @@ const VectorDB = () => {
   const [fileName, setFileName] = useState(null);
   const [message, setMessage] = useState(''); 
   const [pdfFiles, setPdfFiles] = useState([]); // Store multiple files
+  const [pdfFileType, setPdfFileType] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isExisting, setIsExisting] = useState(true);
@@ -106,64 +108,80 @@ const VectorDB = () => {
     setIsExisting(!isExisting);
   };
   const handleFileChange = (event) => {
-    console.log("pdffile",pdfFiles)
+    console.log("chan")
+    console.log("File input event:", event.target.files);
     const files = Array.from(event.target.files); // Convert FileList to array
-    console.log("pdffile",pdfFiles)
-    // Filter out only PDF files
-    const pdfFilesOnly = files.filter(
-      (file) => file.type === "application/pdf"
+  
+    // Filter valid files (PDF and HTML)
+    const validFiles = files.filter(
+      (file) => file.type === "application/pdf" || file.type === "text/html"
     );
-
-    // If no PDF files selected, show alert
-    if (pdfFilesOnly.length === 0) {
-      alert("Please upload valid PDF files.");
+  
+    // Alert if no valid files are selected
+    if (validFiles.length === 0) {
+      alert("Please upload valid PDF or HTML files.");
       return;
     }
-
-    // Create file URL and name for each selected file
-    const newFiles = pdfFilesOnly.map((file) => ({
+  
+    // Map valid files to include metadata
+    const newFiles = validFiles.map((file) => ({
       fileObject: file,
       name: file.name,
+      type: file.type, 
+      timestamp: Date.now(),// Keep track of file type for further use
     }));
-    if (newFiles.length === newFiles.length) {
-      const ffileURL = URL.createObjectURL(newFiles[0].fileObject);
-      setPdfFile(ffileURL);
+  
+    // Generate preview URL for the first valid file
+    if (newFiles.length > 0) {
+      const firstFileURL = URL.createObjectURL(newFiles[0].fileObject);
+      console.log("firstfileurl",firstFileURL)
+      setPdfFile(firstFileURL);
+      setPdfFileType(newFiles[0].fileObject.type)
+       // Assuming setPdfFile is for preview
     }
-    // Append new files to the existing state (pdfFiles)
+  
+    // Append new files to the existing state
     setPdfFiles((prev) => [...prev, ...newFiles]);
+    event.target.value = null;
   };
+  
+  
 
   // Log the pdfFiles when state changes
   useEffect(() => {
     console.log("Updated pdfFiles:", pdfFiles);
   }, [pdfFiles]); // This will run after pdfFiles state is updated
-
+ 
   const handlePdfClick = (fileObject) => {
     console.log("selectedpdf", fileObject);
 
     // Update the selected PDF file object for the viewer
     const ffileURL = URL.createObjectURL(fileObject.fileObject); // Use the fileObject's file here
-    console.log("File URL: ", ffileURL);
+    console.log("File URL: ", fileObject.type);
     setPdfFile(ffileURL); // Debugging the generated blob URL
+    setPdfFileType(fileObject.type); // Set the file type dynamically
+   
   };
   const handlePdfRemove = (fileObject) => {
     console.log("removepdf", fileObject);
      // Filter out the file to be removed
      const updatedFiles = pdfFiles.filter((file) => file.name !== fileObject.name);
-
+     console.log("updatedpdfFIles",!updatedFiles)
      // Update the state with the remaining files
      setPdfFiles(updatedFiles);
-     console.log("updated files",pdfFiles)
-     if (pdfFiles.length>1) {
-      const firstFile = pdfFiles[0];
-      const ffileURL = URL.createObjectURL(firstFile.fileObject); // Generate blob URL
-      console.log("File URL: ", ffileURL);
-      setPdfFile(ffileURL); // Set the file URL to state
-    } else if(pdfFiles.length ===1) {
+    
+     console.log("updated files",updatedFiles.length)
+      if(updatedFiles.length ===0) {
       console.log("empty")
       setPdfFiles([])
       setPdfFile();
       console.log("pdffile",pdfFiles) // Reset if no files exist
+    }
+    else{
+      const firstFileURL = URL.createObjectURL(updatedFiles[0].fileObject);
+      console.log("firstfileurl",firstFileURL)
+      setPdfFile(firstFileURL);
+      setPdfFileType(updatedFiles[0].fileObject.type)
     }
    
   };
@@ -305,72 +323,108 @@ const VectorDB = () => {
    {isExisting &&
       <div className="content">
         <div className="upload-container">
-          <input
-            id="pdf-upload"
-            type="file"
-            multiple
-            accept="application/pdf"
-            onChange={handleFileChange}
-            className="hidden-input"
-          />
-          <label htmlFor="pdf-upload" className="drag-label">
-            Drag & drop a PDF file here, or click to browse
-          </label>
+        <input
+  id="file-upload"
+  type="file"
+  multiple
+  accept="application/pdf, text/html"
+  onChange={handleFileChange}
+  className="hidden-input"
+/>
+<label htmlFor="file-upload" className="drag-label">
+  Drag & drop a PDF or HTML file here, or click to browse
+</label>
+
         </div>
         <div className="flex">
-          <div className="file-info">
-            {pdfFiles.length > 0 && (
-              <div>
-                <div className="pdf-list mt-4">
-                  {pdfFiles.length > 0 &&
-                    pdfFiles.map((pdf, index) => (
-                      <div
-                        
-                        className="flex items-center mb-2"
-                       
-                      >
-                        <FaRegFilePdf
-                          style={{
-                            color: "#FF0000",
-                            marginTop: "2px",
-                            cursor: "pointer",
-                          }}
-                        />
-                        <p className="ml-1" style={{ cursor: "pointer" }} key={index} onClick={() => handlePdfClick(pdf)}>
-                          {pdf.name}
-                        </p>
-                        <IoIosClose className="ml-4"  style={{ cursor: "pointer" }} onClick={() => handlePdfRemove(pdf)} />
-                      </div>
-                    ))}
-                </div>
-                <button className="home-button" onClick={handleCreateIndex} disabled={isLoading}>
-        {isLoading ? 'Processing...' : 'Create Index'}
+        <div className="file-info">
+  {pdfFiles.length > 0 && (
+    <div>
+      <div className="pdf-list mt-4">
+        {pdfFiles.map((file, index) => (
+          <div key={index} className="flex items-center mb-2">
+            {/* Icon based on file type */}
+            {file.type === "application/pdf" ? (
+              <FaRegFilePdf
+                style={{
+                  color: "#FF0000",
+                  marginTop: "2px",
+                  cursor: "pointer",
+                }}
+              />
+            ) : (
+              <BsFiletypeHtml
+                style={{
+                  color: "#1E90FF",
+                  marginTop: "2px",
+                  cursor: "pointer",
+                }}
+              />
+            )}
+            {/* File Name */}
+            <p
+              className="ml-1"
+              style={{ cursor: "pointer" }}
+              onClick={() => handlePdfClick(file)}
+            >
+              {file.name}
+            </p>
+            {/* Remove File */}
+            <IoIosClose
+              className="ml-4"
+              style={{ cursor: "pointer" }}
+              onClick={() => handlePdfRemove(file)}
+            />
+          </div>
+        ))}
+      </div>
+      {/* Button and Status */}
+      <button
+        className="home-button"
+        onClick={handleCreateIndex}
+        disabled={isLoading}
+      >
+        {isLoading ? "Processing..." : "Create Index"}
       </button>
       {isLoading && (
         <div className="progress-bar-container mt-3">
-          <div className="progress-bar "></div>
-        
+          <div className="progress-bar"></div>
         </div>
-      )} {!isLoading && message && (
+      )}
+      {!isLoading && message && (
         <p className="message-box">{message}</p> // Display the success or error message
       )}
-              </div>
-            )}
-          </div>
+    </div>
+  )}
+</div>
+
           <div className="pdf-info ml-2">
-            {pdfFile && (
-              <div>
-                <div className="pdf-container">
-                  <Worker workerUrl="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js">
-                    {pdfFile ? (
-                      <Viewer fileUrl={pdfFile} plugins={[defaultLayout]} />
-                    ) : (
-                      <p>No PDF selected</p>
-                    )}
-                  </Worker>
-                </div>
-              </div>
-            )}
+          {pdfFile && (
+  <div>
+    <div className="pdf-container">
+      {console.log("filetype",pdfFile)}
+      {pdfFileType === "application/pdf" ? (
+        <Worker workerUrl="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js">
+          {pdfFile ? (
+            <Viewer fileUrl={pdfFile} plugins={[defaultLayout]} />
+          ) : (
+            <p>No PDF selected</p>
+          )}
+        </Worker>
+      ) : pdfFileType === "text/html" ? (
+        <iframe
+          src={pdfFile}
+          title="HTML Preview"
+          className="html-preview"
+          style={{ width: "100%", height: "98vh", border: "none" }}
+        ></iframe>
+      ) : (
+        <p>No file selected</p>
+      )}
+    </div>
+  </div>
+)}
+
           </div>
         </div>
       </div>}
