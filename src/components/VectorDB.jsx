@@ -14,10 +14,10 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { BsFiletypeHtml } from "react-icons/bs";
 import { version as pdfjsVersion } from "pdfjs-dist/package.json";
-import abtimg from '../data/About_Us.png';
-import docuimg from '../data/documentation.png';
-import outlookimg from '../data/outlook_icon.jpg';
-import rafimg from '../data/reference.png';
+//import abtimg from '../data/pdfimage.png';
+//import docuimg from '../data/excelimage.jpg';
+//import outlookimg from '../data/htmlimage.png';
+//import rafimg from '../data/docximage.png';
 const VectorDB = () => {
   const techniquesData = [
     {
@@ -29,62 +29,74 @@ const VectorDB = () => {
     {
       id: 2,
       index: 1,
-      name: "HyDE_Search_Method",
+      name: "Hybrid_Search_Score_Method",
       description: "Description for Technique 2",
     },
     {
       id: 3,
       index: 1,
-      name: "Hierarchical_Search_Method",
+      name: "HyDE_Search_Method",
       description: "Description for Technique 3",
     },
     {
       id: 4,
       index: 1,
-      name: "SmallToBig_Parent_Child_Retriever",
+      name: "Hierarchical_Search_Method",
       description: "Description for Technique 4",
     },
     {
       id: 5,
       index: 1,
-      name: "SmallToBig_Sentence_Window_Retriever",
+      name: "SmallToBig_Parent_Child_Retriever",
       description: "Description for Technique 5",
     },
     {
       id: 6,
       index: 1,
-      name: "Similarity_Search_Method",
+      name: "SmallToBig_Sentence_Window_Retriever",
       description: "Description for Technique 6",
     },
     {
       id: 7,
       index: 1,
-      name: "Similarity_Score_Search_Method",
+      name: "Similarity_Search_Method",
       description: "Description for Technique 7",
     },
     {
       id: 8,
-      index: 0,
-      name: "Hybrid_Semantic_Search_With_Score",
+      index: 1,
+      name: "Similarity_Score_Search_Method",
       description: "Description for Technique 8",
     },
     {
       id: 9,
-      index: 0,
-      name: "Hybrid_Search_With_Score",
+      index: 1,
+      name: "Vector_Search_Method",
       description: "Description for Technique 9",
     },
     {
       id: 10,
-      index: 0,
-      name: "Vector_Search_With_Score",
+      index: 1,
+      name: "Hybrid_MMRS_Score_Method",
       description: "Description for Technique 10",
     },
     {
       id: 11,
+      index: 1,
+      name: "MMRS_With_Score_Method",
+      description: "Description for Technique 11",
+    },
+    {
+      id: 12,
+      index: 0,
+      name: "Hybrid_Semantic_Search_With_Score",
+      description: "Description for Technique 12",
+    },
+    {
+      id: 12,
       index: 0,
       name: "Hybrid_Semantic_Search",
-      description: "Description for Technique 11",
+      description: "Description for Technique 12",
     },
   ];
   const defaultLayout = defaultLayoutPlugin();
@@ -100,8 +112,9 @@ const VectorDB = () => {
   const [fileName, setFileName] = useState(null);
   const [message, setMessage] = useState(''); 
   const [pdfFiles, setPdfFiles] = useState([]); // Store multiple files
+  const [htmlLinks, setHtmlLinks] = useState([]); // Store multiple files
   const [pdfFileType, setPdfFileType] = useState(null);
-
+  const [userInputLink, setUserInputLink] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isExisting, setIsExisting] = useState(true);
   const toggleState = () => {
@@ -237,6 +250,24 @@ const VectorDB = () => {
       return prev;
     });
   };
+  const handleInputChange = (event) => {
+    setUserInputLink(event.target.value);
+   
+  };
+
+  const addLinkToList = () => {
+    if (userInputLink.trim()) {
+      setHtmlLinks([...htmlLinks, userInputLink]);
+      setUserInputLink(""); // Clear the input after adding
+    } else {
+      alert("Please enter a valid link.");
+    }
+  };
+  const handleRemoveLink = (linkToRemove) => {
+    setHtmlLinks((prevLinks) => prevLinks.filter((link) => link !== linkToRemove));
+  };
+  
+console.log("links",htmlLinks)
   return (
     <div className="app-container">
       <div className="sidebar">
@@ -296,7 +327,7 @@ const VectorDB = () => {
             ))}
           </ul>
         </div>
-  {/*      <div className="sidenavimg flex justify-center">
+       {/* <div className="sidenavimg flex justify-center">
       <img
           style={{width:"40px",marginTop:'-8px'}}
           src={abtimg}
@@ -318,11 +349,26 @@ const VectorDB = () => {
           alt="ragimg"
         />
    
-      </div>*/}
+      </div> */}
       </div>
-   {isExisting &&
+     
+   
       <div className="content">
-        <div className="upload-container">
+         <div className="toggle-container">
+      {/* Label for "Create" */}
+     
+ 
+      {/* Toggle switch */}
+      <div
+        className={`toggle-switch ${isExisting ? "" : "active"}`}
+        onClick={toggleState}
+      >
+        <div className="toggle-knob"></div>
+      </div>
+       {/* Label for "Existing" */}
+       <span className="toggle-label">Add Link</span>
+    </div>  
+      {isExisting ?  <div className="upload-container">
         <input
   id="file-upload"
   type="file"
@@ -334,16 +380,32 @@ const VectorDB = () => {
 <label htmlFor="file-upload" className="drag-label">
   Drag & drop a PDF or HTML file here, or click to browse
 </label>
-
+      
         </div>
+        :
+          <div className="link-container" key="id">
+                <textarea
+                  id="links"
+                  className="link-input"
+                  placeholder=""
+                  value={userInputLink}
+                  onChange={handleInputChange}
+                ></textarea>
+             
+              
+             <button className="addlink-button " onClick={addLinkToList}>Add Link</button>
+              </div>}
         <div className="flex">
         <div className="file-info">
   {pdfFiles.length > 0 && (
     <div>
-      <div className="pdf-list mt-4">
+      <p className="text-left text-2xl font-bold">Files</p>
+
+      <div className="pdf-list mt-2 ml-2">
         {pdfFiles.map((file, index) => (
           <div key={index} className="flex items-center mb-2">
             {/* Icon based on file type */}
+           
             {file.type === "application/pdf" ? (
               <FaRegFilePdf
                 style={{
@@ -363,8 +425,16 @@ const VectorDB = () => {
             )}
             {/* File Name */}
             <p
-              className="ml-1"
-              style={{ cursor: "pointer" }}
+               className="ml-1 text-left truncate"
+               style={{
+                 cursor: "pointer",
+                 
+                 color: "black",
+                 overflow: "hidden", // Prevent overflowing text
+                 whiteSpace: "nowrap", // Prevent wrapping to the next line
+                 textOverflow: "ellipsis", // Add ellipsis for overflow
+                 maxWidth: "80%", // Adjust the width as needed
+               }}
               onClick={() => handlePdfClick(file)}
             >
               {file.name}
@@ -378,8 +448,64 @@ const VectorDB = () => {
           </div>
         ))}
       </div>
-      {/* Button and Status */}
-      <button
+
+    </div>
+  )}
+ 
+  {htmlLinks.length > 0 && (
+  <div>
+    {/* Heading */}
+    <p className="text-left  text-2xl font-bold mt-8">Links</p>
+
+    {/* List of links */}
+    <div className="link-list mt-2 ml-2">
+      {htmlLinks.map((link, index) => (
+      <div key={index} className="flex items-center mb-2">
+      {/* Icon for links */}
+      <BsFiletypeHtml
+        style={{
+          color: "#1E90FF",
+          marginTop: "2px",
+          cursor: "pointer",
+          flexShrink: 0, // Prevent shrinking of the icon
+        }}
+      />
+    
+      {/* Link Name */}
+      <p
+        className="ml-1 text-left truncate"
+        style={{
+          cursor: "pointer",
+          textDecoration: "underline",
+          color: "blue",
+          overflow: "hidden", // Prevent overflowing text
+          whiteSpace: "nowrap", // Prevent wrapping to the next line
+          textOverflow: "ellipsis", // Add ellipsis for overflow
+          maxWidth: "80%", // Adjust the width as needed
+        }}
+        onClick={() => window.open(link, "_blank")}
+      >
+        {link}
+      </p>
+    
+      {/* Remove Link */}
+      <IoIosClose
+        className="ml-4"
+        style={{
+          cursor: "pointer",
+          flexShrink: 0, // Prevent shrinking of the remove icon
+        }}
+        onClick={() => handleRemoveLink(link)}
+      />
+    </div>
+    
+      ))}
+    </div>
+  </div>
+)}
+{(pdfFiles.length>0 || htmlLinks.length>0) && <div className="mt-5">
+        {/* Button and Status */}
+        <button
         className="home-button"
         onClick={handleCreateIndex}
         disabled={isLoading}
@@ -394,9 +520,9 @@ const VectorDB = () => {
       {!isLoading && message && (
         <p className="message-box">{message}</p> // Display the success or error message
       )}
-    </div>
-  )}
+</div>}
 </div>
+
 
           <div className="pdf-info ml-2">
           {pdfFile && (
@@ -427,9 +553,7 @@ const VectorDB = () => {
 
           </div>
         </div>
-      </div>}
-      {!isExisting&&
-      <div className="index-info">chandrabhan</div>}
+      </div>
     </div>
   );
 };
