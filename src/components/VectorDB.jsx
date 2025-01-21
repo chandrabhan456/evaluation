@@ -243,13 +243,13 @@ const VectorDB = () => {
   const toggleTechnique = (techniqueName) => {
     setSelectedTechniques((prev) => {
       if (prev.includes(techniqueName)) {
-        return prev.filter((item) => item !== techniqueName);
-      } else if (prev.length) {
-        return [...prev, techniqueName];
+        return prev.filter((item) => item !== techniqueName); // Remove if already selected
+      } else {
+        return [...prev, techniqueName]; // Add technique
       }
-      return prev;
     });
   };
+  
   const handleInputChange = (event) => {
     setUserInputLink(event.target.value);
    
@@ -455,7 +455,7 @@ console.log("links",htmlLinks)
   {htmlLinks.length > 0 && (
   <div>
     {/* Heading */}
-    <p className="text-left  text-2xl font-bold mt-8">Links</p>
+    <p className="text-left  text-2xl font-bold mt-6">Links</p>
 
     {/* List of links */}
     <div className="link-list mt-2 ml-2">
@@ -476,8 +476,8 @@ console.log("links",htmlLinks)
         className="ml-1 text-left truncate"
         style={{
           cursor: "pointer",
-          textDecoration: "underline",
-          color: "blue",
+         
+          color: "black",
           overflow: "hidden", // Prevent overflowing text
           whiteSpace: "nowrap", // Prevent wrapping to the next line
           textOverflow: "ellipsis", // Add ellipsis for overflow
