@@ -111,6 +111,7 @@ const VectorDB = () => {
   const [pdfFile, setPdfFile] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [message, setMessage] = useState(''); 
+  const [errmessage, setErrMessage] = useState(''); 
   const [pdfFiles, setPdfFiles] = useState([]); // Store multiple files
   const [htmlLinks, setHtmlLinks] = useState([]); // Store multiple files
   const [pdfFileType, setPdfFileType] = useState(null);
@@ -182,7 +183,8 @@ const VectorDB = () => {
      console.log("updatedpdfFIles",!updatedFiles)
      // Update the state with the remaining files
      setPdfFiles(updatedFiles);
-    
+     setMessage('')
+     setErrMessage('')
      console.log("updated files",updatedFiles.length)
       if(updatedFiles.length ===0) {
       console.log("empty")
@@ -234,7 +236,7 @@ const VectorDB = () => {
       
     } catch (error) {
       console.error('Error creating index:', error);
-      setMessage(`Error creating index: ${error.message}`)
+      setErrMessage(`Error creating index: ${error.message}`)
     }finally {
       setIsLoading(false);
     }
@@ -265,6 +267,8 @@ const VectorDB = () => {
   };
   const handleRemoveLink = (linkToRemove) => {
     setHtmlLinks((prevLinks) => prevLinks.filter((link) => link !== linkToRemove));
+    setMessage('')
+    setErrMessage('')
   };
   
 console.log("links",htmlLinks)
@@ -433,7 +437,7 @@ console.log("links",htmlLinks)
                  overflow: "hidden", // Prevent overflowing text
                  whiteSpace: "nowrap", // Prevent wrapping to the next line
                  textOverflow: "ellipsis", // Add ellipsis for overflow
-                 maxWidth: "80%", // Adjust the width as needed
+                 maxWidth: "85%", // Adjust the width as needed
                }}
               onClick={() => handlePdfClick(file)}
             >
@@ -481,7 +485,7 @@ console.log("links",htmlLinks)
           overflow: "hidden", // Prevent overflowing text
           whiteSpace: "nowrap", // Prevent wrapping to the next line
           textOverflow: "ellipsis", // Add ellipsis for overflow
-          maxWidth: "80%", // Adjust the width as needed
+          maxWidth: "85%", // Adjust the width as needed
         }}
         onClick={() => window.open(link, "_blank")}
       >
@@ -519,6 +523,9 @@ console.log("links",htmlLinks)
       )}
       {!isLoading && message && (
         <p className="message-box">{message}</p> // Display the success or error message
+      )}
+      {!isLoading && errmessage && (
+        <p className="message-box1">{errmessage}</p> // Display the success or error message
       )}
 </div>}
 </div>

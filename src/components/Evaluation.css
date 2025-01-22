@@ -515,10 +515,10 @@ body {
   margin-top: 20px;
   padding: 15px;
   background-color: #FF7F7F; /* Light green */
-  color: red; /* Dark green text */
+  color: black; /* Dark green text */
   border: 1px solid #c3e6cb; /* Border for light green box */
   border-radius: 5px;
   font-size: 16px;
   text-align: center;
-  width:50%
+ 
 }
