@@ -67,7 +67,9 @@ const Evaluation1 = () => {
             "Similarity_Search_Method",
             "HyDE_Search_Method",
             "Similarity_Score_Search_Method",
-            "Hybrid_Search_Method"
+            "Hybrid_Search_Method",
+            "Vector_Search_Method",
+            "MMRS_With_Score_Method"
         ],
         "status": 200
     }      
@@ -148,57 +150,109 @@ const Evaluation1 = () => {
       // method: 'POST',
       /// body: requestBody, 
     // });
-    const response = {
-      "Response": {
-          "Answer_Latency": {
-              "0": "1.52 secs",
-              "1": "1.37 secs"
-          },
-          "Context_Latency": {
-              "0": "1.61 secs",
-              "1": "5.16 secs"
-          },
-          "Evaluation_Latency": "133.71 secs",
-          "answer_relevancy": {
-              "0": 0.9965134210165661,
-              "1": 0.944727735443102
-          },
-          "faithfulness": {
-              "0": 0.0,
-              "1": "0"
-          },
-          "llm_context_precision_without_reference": {
-              "0": 0.0,
-              "1": 0.9999999999
-          },
-          "reference": {
-              "0": "",
-              "1": ""
-          },
-          "response": {
-              "0": "\"The formula for the Property tax liability is: Property Tax Liability = (Assessed Value of Property) * (Tax Rate).\"",
-              "1": "\"Property tax liability = market value X assessment ratio X exemptions X mill rate\""
-          },
-          "retrieved_contexts": {
-              "0": [
-                  "Determining Property Tax Liabilities Defining and Valuing the Property Tax Base Component Frequency of Valuation Determining Valuation Percent Real Property 5 year assessment cycle Local government 70 Personal Property Annually Self reported 70 Motor Vehicles Annually OPM from NADA data 70 10/28/2015 7/n/nDetermining Property Tax Liabilities Defining and Valuing the Property Tax Base Component Frequency of Valuation Determining Valuation Percent Real Property 5 year assessment cycle Local government 70 Personal Property Annually Self reported 70 Motor Vehicles Annually OPM from NADA data 70 10/28/2015 7/n/nDetermining Property Tax Liabilities Defining and Valuing the Property Tax Base Component Frequency of Valuation Determining Valuation Percent Real Property 5 year assessment cycle Local government 70 Personal Property Annually Self reported 70 Motor Vehicles Annually OPM from NADA data 70 10/28/2015 7"
-              ],
-              "1": [
-                  "Property tax liability market value X assessment ratio exemptions X mill rate 10/28/2015 6/n/nProperty tax liability market value X assessment ratio exemptions X mill rate 10/28/2015 6/n/nProperty tax liability market value X assessment ratio exemptions X mill rate 10/28/2015 6"
-              ]
-          },
-          "techniques": {
-              "0": "Hybrid_Search_Method",
-              "1": "HyDE_Search_Method"
-          },
-          "user_input": {
-              "0": "what is the formula for the Property tax liability?",
-              "1": "what is the formula for the Property tax liability?"
-          }
+    //const response = {
+  
+ // }
+ const response ={
+
+  "Response": {
+
+      "Answer_Latency": {
+
+          "0": "38.65 secs",
+
+          "1": "61.28 secs"
+
       },
-      "status": 200
-  }
-   
+
+      "Context_Latency": {
+
+          "0": "2.38 secs",
+
+          "1": "2.86 secs"
+
+      },
+
+      "Evaluation_Latency": "240.57 secs",
+
+      "answer_relevancy": {
+
+          "0": 0.9430243851944295,
+
+          "1": 0.8334469558432738
+
+      },
+
+      "faithfulness": {
+
+          "0": "0",
+
+          "1": "0"
+
+      },
+
+      "llm_context_precision_without_reference": {
+
+          "0": 0.9999999999,
+
+          "1": 0.9999999999
+
+      },
+
+      "reference": {
+
+          "0": "",
+
+          "1": ""
+
+      },
+
+      "response": {
+
+          "0": "\"Property tax liability = market value X assessment ratio - exemptions X mill rate\"",
+
+          "1": "\"Net Tax Bill = Market Value x Sales Ratio - Exemptions x Assessment Ratio x Tax Rate - Credits\""
+
+      },
+
+      "retrieved_contexts": {
+
+          "0": [
+
+              "Determining Property Tax Liabilities Defining and Valuing the Property Tax Base Component Frequency of Valuation Determining Valuation Percent Real Property 5 year assessment cycle Local government 70 Personal Property Annually Self reported 70 Motor Vehicles Annually OPM from NADA data 70 10/28/2015 7/n/n45 them after first applying the sales ratio to tr ue market value since the exemption will not incorporate any of the assessment error to which properties may be subject Note in some cases the exemption is subtracted from taxable value instead of assessed value In those cases we apply the exemption after applying the classification rate Component 4 Classification Rates CR The fourth component of the property tax calculation involves subjecting the parcel s taxable value to classification or assessment rates which convert assessed value to taxable value In many cases these classification rates are 100 meaning that taxable value is equal to assessed value However governments often use differential rates to affect the distribution of property tax levies to provide tax relief for a selected class of classes of properties at the expense of others In most states state legislatures set the classification schemes In a few states local governments have some autonomy over classification rates Because of the wide variation in the quality of assessments across the states particularly across classes of property many states have no classification scheme in statute and may in fact have significant classification via uneven assessments across classes of property In some cases this may violate state constitutional provisions on uniform assessments Some states like Minnesota enforce strict standards of assessment quality sales ratio studies state orders adjusting values state certification of assessors etc and put their classification policy in statute Component 5 Total Local Tax Rate TR The study defines payable 2020 tax rate as the rate used to calculate the property taxes with a lien date in 2020 regardless of the date s on which payments are due In some cities there are multiple combinations of taxing jurisdictions namely the state cities counties school districts and special taxing districts For instance a city may be located in multiple school districts and therefore rates will differ based on which school district a parcel is located in This study uses the rate that is most prevalent in a city This study excludes special assessments since they are more in the nature of user charges do not affect a majority of parcels and are usually not sources of general revenue Component 6 Credits C The final step in the tax calculation is to recognize any general deductions from the gross property tax calculations credits The study includes any credits that apply to a majority of parcels of the specified type Certain states provide credits based on early payment the study assumes that taxpayers take advantage of the credit by making the early payment Effective Tax Rates ETRs Effective tax rates are used to express the relatio nship between net property taxes and the true market value of a property This contrasts with the millage rates or other rates that are applied to/n/nProperty tax liability market value X assessment ratio exemptions X mill rate 10/28/2015 6"
+
+          ],
+
+          "1": [
+
+              "Determining Property Tax Liabilities Defining and Valuing the Property Tax Base Component Frequency of Valuation Determining Valuation Percent Real Property 5 year assessment cycle Local government 70 Personal Property Annually Self reported 70 Motor Vehicles Annually OPM from NADA data 70 10/28/2015 7/n/n24 Figure 3 Commercial Property Taxes for Largest City in Each State (2022 Effective Tax Rate for $1 Million Valued Property plus $200k in Fixtures "
+
+          ]
+
+      },
+
+      "techniques": {
+
+          "0": "Vector_Search_Method",
+
+          "1": "MMRS_With_Score_Method"
+
+      },
+
+      "user_input": {
+
+          "0": "what is the formula for Property tax liability?",
+
+          "1": "what is the formula for Property tax liability?"
+
+      }
+
+  },
+
+  "status": 200
+
+}
+
      
       console.log("DDDDDDDDDDD",response)
       console.log('Response headers:', response.status); 
@@ -242,7 +296,7 @@ const Evaluation1 = () => {
    console.log("message1",message);
    const apiResponseLength = apiResponce ? Object.keys(apiResponce).length : 0;
 console.log(apiResponseLength);
-  const [selectedTechniques, setSelectedTechniques] = useState([techniquesData1[0].name,techniquesData1[1].name]);
+  const [selectedTechniques, setSelectedTechniques] = useState([]);
 
   
   console.log("techniques",techniquesData1[0].name)
@@ -444,7 +498,7 @@ console.log("Boolean",myBoolean)
                                       ><button className="home-button ">Playground</button></NavLink>
                     <button className="home-button ">EvalFrame</button>
       </div>
-      <div className="toggle-container justify-end mt-2">
+      <div className="toggle-container justify-center mt-2">
       {/* Label for "Create" */}
       <span className="toggle-label ">RAGAS</span>
  
@@ -458,10 +512,10 @@ console.log("Boolean",myBoolean)
        {/* Label for "Existing" */}
        <span className="toggle-label">DeepEval</span>
     </div>   
-      <ul style={{marginTop:'10px'}}>
+      <ul style={{marginTop:'3px'}}>
         {updatedData1.map((technique) => (
-          <li key={technique.id}>
-            <label>
+          <li key={technique.id} >
+            <label    className="truncate">
               <input
                 type="checkbox"
                 checked={selectedTechniques.includes(technique.name)}
@@ -498,8 +552,8 @@ console.log("Boolean",myBoolean)
     </div>*/}
     </div>
 
-    <div className="content">
-      <div className="input-container">
+    <div className="content bg-[#F8F9FA]">
+      <div className="input-container mt-3">
         <textarea
           className="question-input"
           placeholder="Type your question here..."
@@ -604,7 +658,7 @@ console.log("Boolean",myBoolean)
       <div key={index} className="dynamic-box">
         <h4 style={{ marginTop: '-10px' }} className="text-blue-400">{technique?.name}</h4>
        
-        <p className="mt-1 text-lg">
+        <p className=" text-lg">
           <strong className="text-lg">Response:</strong> {technique?.response}
         </p>
         <p className="mt-1 text-lg">

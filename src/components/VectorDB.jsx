@@ -316,16 +316,32 @@ console.log("links",htmlLinks)
           <ul>
             {techniquesData.map((technique) => (
               <li key={technique.id}>
-                <label
+                <label style={{display:"flex",gap:'10px'}}
                   className={technique.index === 0 ? "disabled-technique" : ""}
                 >
                   <input
                     type="checkbox"
+                   
                     checked={selectedTechniques.includes(technique.name)}
                     onChange={() => toggleTechnique(technique.name)}
+                    style={{
+                      flexShrink: 0       // Prevent checkbox from shrinking
+                    }}
                     disabled={technique.index === 0} // Disable if index is 0
                   />
-                  {technique.name}
+                 <span
+    style={{
+                 // Allows text to take up available space
+      overflow: "hidden",  // Hides overflowed text
+      textOverflow: "ellipsis", // Uses ellipsis to indicate overflow
+      whiteSpace: "nowrap", // Prevents text wrapping to next line
+      minWidth: "0"        // Ensures flexbox calculations work properly
+    }}
+    className="technique-name"
+  >
+    {technique.name}
+  
+  </span>
                 </label>
               </li>
             ))}
@@ -357,7 +373,7 @@ console.log("links",htmlLinks)
       </div>
      
    
-      <div className="content">
+      <div className="content bg-[#f8f9fa]">
          <div className="toggle-container">
       {/* Label for "Create" */}
      

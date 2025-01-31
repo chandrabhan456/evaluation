@@ -144,7 +144,7 @@ const Home = () => {
         <div className="flex-container">
         
               <div  className="dynamic-box">
-              <div style={{ backgroundColor: "#f5f5f5", fontFamily: "Arial, sans-serif", padding: "20px" }}>
+              <div style={{ backgroundColor: "#f5f5f5", fontFamily: "Arial, sans-serif", padding: "20px",marginTop:'-10px' }}>
       {/* Introduction Container */}
       <div
         style={{

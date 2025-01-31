@@ -10,7 +10,7 @@ body {
     overflow-y: auto;  /* Subtract the height of the navbar */
   }
   .sidebar {
-    width: 444px;
+    width: 400px;
     background-color: #f8f9fa;
     padding: 20px;
     
@@ -41,6 +41,10 @@ body {
   
   .sidebar li {
     margin-bottom: 15px;
+    position: relative; /* This will help in allowing the tooltip for the full name */
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis;
   }
   
   .sidebar label {
@@ -50,13 +54,14 @@ body {
     color: #555;
     cursor: pointer;
     transition: color 0.2s;
+    margin-left: 0px;
   }
 /*   
   .sidebar label:hover {
     color: #007bff;
   } */
   .sidebar input[type="checkbox"] {
-    margin-right: 10px;
+    margin-left: 2px;
     transform: scale(1.2);
     cursor: pointer;
     appearance: none; /* Removes default styling */
@@ -68,12 +73,15 @@ body {
     border-radius: 3px; /* Optional: Rounded corners */
     outline: none; /* Removes focus outline */
     display: inline-block;
+    margin-top: 2px;
   }
   
   .sidebar input[type="checkbox"]:checked {
     background-color: #007bff; /* Background when checked */
     border-color: #0056b3; /* Border color when checked */
     color: white; /* Optional for text if any */
+    margin-left: 2px; 
+    margin-top: 2px;
   }
   
 .sidebar input[type="checkbox"]:checked::after {
@@ -85,15 +93,21 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
 }
   
   .sidebarContent{
-    margin-top: 10%;
-  }.button-container {
+    margin-top: 0.5%;
+  }
+  .technique-name:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+  .button-container {
     display: grid;
     grid-template-columns: repeat(2, auto); /* Two columns */
     gap: 20px; /* Space between rows and columns */
-    justify-content: center; /* Center the grid */
+    justify-content: left; /* Center the grid */
   }
   
   .home-button {
@@ -103,7 +117,7 @@ body {
     font-weight: bold;
     padding: 10px 20px;
     border: none;
-    width: 140px;
+    width: 160px;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -134,20 +148,21 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: -1%;
+    margin-top: -0.7%;
      height: 100%;
   }
   
   .dynamic-box {
-   /* flex: 1 1 calc(50% - 30px); /* Adjust the width dynamically */
-   flex:1;
+    flex: 1 1 calc(50% - 30px); /* Adjust the width dynamically */
+   
     background-color: #f7f7f7;
     box-sizing: border-box;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: 101%; /* Set full height */
+    height: fit-content;
+  height:101%;/* Set full height */
     display: flex; /* Ensure content inside is aligned properly */
     flex-direction: column;
     text-align: left; /* To allow vertical alignment */
@@ -261,6 +276,7 @@ body {
     width: 100%;
     height: 75px;
     border: 2px dashed #ccc;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -438,7 +454,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: -1%;
+  margin-top: -0.7%;
   align-items: stretch;
 }
 .sidenavimg{
@@ -485,10 +501,10 @@ body {
 /* Toggle knob */
 .toggle-knob {
   position: relative;
-  top: 0px;
-  left: 0px;
-  width: 21px;
-  height: 23px;
+  top: 2px;
+  left: 2px;
+  width: 19px;
+  height: 19px;
   background-color: #007bff;
   border-radius: 50%;
   
@@ -496,7 +512,7 @@ body {
 
 /* Move toggle knob when active */
 .toggle-switch.active .toggle-knob {
-  transform: translateX(26.5px);
+  transform: translateX(24px);
 }
 .tag1 {
   background-color:  #007bff;
