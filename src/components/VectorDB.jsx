@@ -373,8 +373,8 @@ console.log("links",htmlLinks)
       </div>
      
    
-      <div className="content bg-[#f8f9fa]">
-         <div className="toggle-container">
+      <div className="content bg-[#ffffff]">
+         <div className="toggle-container" style={{backgroundColor:'#ffffff'}}>
       {/* Label for "Create" */}
      
  
@@ -386,7 +386,7 @@ console.log("links",htmlLinks)
         <div className="toggle-knob"></div>
       </div>
        {/* Label for "Existing" */}
-       <span className="toggle-label">Add Link</span>
+       <span className="toggle-label" style={{backgroundColor:'white'}}>Add HTML Link</span>
     </div>  
       {isExisting ?  <div className="upload-container">
         <input
@@ -419,7 +419,7 @@ console.log("links",htmlLinks)
         <div className="file-info">
   {pdfFiles.length > 0 && (
     <div>
-      <p className="text-left text-2xl font-bold">Files</p>
+      <p className="text-left text-2xl font-bold">Documents</p>
 
       <div className="pdf-list mt-2 ml-2">
         {pdfFiles.map((file, index) => (

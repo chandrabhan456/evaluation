@@ -39,7 +39,7 @@ const App = () => {
                 : 'bg-white min-h-screen  md:ml-0 w-full  '
             }
           >
-            <div className="fixed md:static bg-white navbar w-full ">
+            <div className="fixed md:static  bg-white navbar w-full ">
               <Navbar />
             </div>
           

@@ -50,7 +50,7 @@ const Navbar = () => {
   const navigate = useNavigate()
   return (
     <div className={currentMode === 'Dark' ? 'dark' : ''}>
-    <div className='flex justify-between md:mx-0 relative w-full'  > 
+    <div className='flex justify-between md:mx-0 relative w-full bg-[#FFFFFF]'  > 
   
     <div className='flex'><img
           style={{width:"250px",marginLeft:"-15px"}}
@@ -104,6 +104,7 @@ const Navbar = () => {
     </div>
     <div style={{
       width: '100%',
+      
       height: '1px',
       backgroundColor: '#D3D3D3',
     }} />

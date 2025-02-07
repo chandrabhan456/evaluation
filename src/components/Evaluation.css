@@ -11,7 +11,7 @@ body {
   }
   .sidebar {
     width: 400px;
-    background-color: #f8f9fa;
+    background-color: #f7f8fa;
     padding: 20px;
     
     border-right: 1px solid #ddd;
@@ -149,24 +149,24 @@ body {
     flex-wrap: wrap;
     gap: 10px;
     margin-top: -0.7%;
-     height: 100%;
+     height: 100vh;
   }
   
   .dynamic-box {
-    flex: 1 1 calc(50% - 30px); /* Adjust the width dynamically */
-   
+    flex: 1 1 calc(50% - 30px);
     background-color: #f7f7f7;
     box-sizing: border-box;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: fit-content;
-  height:101%;/* Set full height */
-    display: flex; /* Ensure content inside is aligned properly */
+    height: fit-content; /* Allow content to expand */
+    height: 101%;
+    display: flex;
     flex-direction: column;
-    text-align: left; /* To allow vertical alignment */
-  }.input-container {
+    text-align: left;
+}
+.input-container {
     position: relative;
    
     display: flex;
@@ -184,7 +184,7 @@ body {
     width: 60%;
     height: 80px;
     padding: 10px;
-    background-color: #f5f5f5;
+    background-color: #f7f7f7;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -198,7 +198,7 @@ body {
     width: 100%;
     height: 55px;
     text-align: left;
-    background-color: #f5f5f5;
+    background-color: #f7f7f7;
     font-size: 26px;
   
   
@@ -214,7 +214,7 @@ body {
     width: 40%;
     height: 80px;
     padding: 10px;
-    background-color: #f5f5f5;
+    background-color: #f7f7f7;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -281,7 +281,7 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
-    background-color: #f9f9f9;
+    background-color: #f7f7f7;
     cursor: pointer;
     margin-top: .5%;
 }
@@ -293,7 +293,7 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  background-color: #f9f9f9;
+  background-color: #f7f7f7;
   cursor: pointer;
   margin-top: .5%;
   border: 1px solid #ccc;
