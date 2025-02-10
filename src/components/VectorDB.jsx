@@ -415,7 +415,7 @@ console.log("links",htmlLinks)
               
              <button className="addlink-button " onClick={addLinkToList}>Add Link</button>
               </div>}
-        <div className="flex">
+             { (pdfFiles.length>0 || htmlLinks.length>0) ? <div className="flex">
         <div className="file-info">
   {pdfFiles.length > 0 && (
     <div>
@@ -575,7 +575,12 @@ console.log("links",htmlLinks)
 )}
 
           </div>
-        </div>
+        </div> :
+        <div className="flex-container ">
+       
+          <div  className="dynamic-box1 mt-5" >
+            </div>
+            </div>}
       </div>
     </div>
   );

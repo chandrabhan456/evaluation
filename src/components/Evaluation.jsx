@@ -35,13 +35,18 @@ const Evaluation1 = () => {
   const { home, setHome, playgrond, setPlaygrond, vertorDB, setVectorDB } = useStateContext();
  
   const [message, setMessage] = useState(''); 
- 
+  const [groundTruth,setGroundTruth] = useState(false)
   const [isLoading, setIsLoading] = useState(false);
   const [techname, setTechName] = useState(false)
   let formattedData
   const [isExisting, setIsExisting] = useState(true);
   const [deepeval, setdeepeval] = useState("RAGAS");
   const[errormsg,setErrormsg]=useState("") 
+  const [methods,setMethods] = useState(false)
+  const toggleReference = () => {
+   
+    setGroundTruth(!groundTruth);
+  };
    const toggleState = () => {
      if (!isExisting){
       setdeepeval("RAGAS")
@@ -55,24 +60,25 @@ const Evaluation1 = () => {
    };
   useEffect(() => {
     // Function to fetch data from the
+    setMethods(true)
     const fetchIndexes = async () => {
       try {
-      //  const response = await fetch('http://localhost:3001/getindexes', {
-      //    method: 'GET'
-      //   });
+       const response = await fetch('http://localhost:3001/getindexes', {
+         method: 'GET'
+        });
 
-      //  const data = await response.json();
-      const data ={
-        "Response": [
-            "Similarity_Search_Method",
-            "HyDE_Search_Method",
-            "Similarity_Score_Search_Method",
-            "Hybrid_Search_Method",
-            "Vector_Search_Method",
-            "MMRS_With_Score_Method"
-        ],
-        "status": 200
-    }      
+       const data = await response.json();
+    //   const data ={
+    //     "Response": [
+    //         "Similarity_Search_Method",
+    //         "HyDE_Search_Method",
+    //         "Similarity_Score_Search_Method",
+    //         "Hybrid_Search_Method",
+    //         "Vector_Search_Method",
+    //         "MMRS_With_Score_Method"
+    //     ],
+    //     "status": 200
+    // }      
         
         if (data && data.status === 200) {
           const formattedData = data.Response.map((item, index) => ({
@@ -89,6 +95,9 @@ const Evaluation1 = () => {
         } 
         catch (error) {
           console.error('Error creating index:', error);
+        }
+        finally {
+          setMethods(false);
         }
       };
       fetchIndexes();
@@ -460,7 +469,14 @@ console.log("Boolean",myBoolean)
        {/* Label for "Existing" */}
        <span className="toggle-label">DeepEval</span>
     </div>   
-      <ul style={{marginTop:'3px'}}>
+    {methods && (
+      <div class="loading-container mt-10">
+  <span class="dot"></span>
+  <span class="dot ml-2"></span>
+  <span class="dot ml-2"></span>
+</div>
+      )}
+     {!methods && <ul style={{marginTop:'3px'}}>
         {updatedData1.map((technique) => (
           <li key={technique.id} >
             <label    className="truncate">
@@ -473,7 +489,7 @@ console.log("Boolean",myBoolean)
             </label>
           </li>
         ))}
-      </ul>
+      </ul>}
       </div>
      {/* <div className="sidenavimg flex justify-center" >
     <img
@@ -501,7 +517,35 @@ console.log("Boolean",myBoolean)
     </div>
 
     <div className="content bg-[#ffffff]">
-      <div className="input-container mt-3">
+    <div className="toggle-container" style={{backgroundColor:'#ffffff'}}>
+      {/* Label for "Create" */}
+     
+ 
+      {/* Toggle switch */}
+      <div
+        className={`toggle-switch ${!groundTruth ? "" : "active"}`}
+        onClick={toggleReference}
+      >
+        <div className="toggle-knob"></div>
+      </div>
+       {/* Label for "Existing" */}
+       <span className="toggle-label" style={{backgroundColor:'white'}}>Add Reference</span>
+    </div>  
+    {!groundTruth &&
+    <div className="input-container ">
+    <textarea
+      className="question-input0"
+      placeholder="Type your question here..."
+      value={userInput}
+      onChange={handleInputChange}
+    ></textarea>
+ 
+    <button className="send-button" onClick={handleSendClick}>
+      <FiSend className="send-icon" />
+    </button>
+  </div>}
+      {groundTruth && 
+      <div className="input-container ">
         <textarea
           className="question-input"
           placeholder="Type your question here..."
@@ -518,19 +562,19 @@ console.log("Boolean",myBoolean)
         <button className="send-button" onClick={handleSendClick}>
           <FiSend className="send-icon" />
         </button>
-      </div>
-
+      </div>}
+ 
  {((!myBoolean||!techname||(!message&&!isLoading))
  ) && (<div className="flex-container">
        
-       <div  className="dynamic-box">
+       <div  className="dynamic-box1">
      {errormsg && <div className="ml-[34%]"><p className="message-box1 ">{errormsg}</p></div>}
  </div>
  </div>
 )}
     {isLoading && (<div className="flex-container">
        
-            <div  className="dynamic-box">
+            <div  className="dynamic-box1">
            
       <div className="progress-bar-container">
        
@@ -554,8 +598,10 @@ console.log("Boolean",myBoolean)
     }
    
     return (
+      //<div key={index}   ref={(el) => (boxRefs.current[index] = el)} 
+      //className="dynamic-box" style={{ minHeight: maxHeight }}>
       <div key={index}   ref={(el) => (boxRefs.current[index] = el)} 
-       className="dynamic-box" style={{ minHeight: maxHeight }}>
+       className="dynamic-box max-h-[800px] overflow-y-auto" >
         <h4 style={{ marginTop: '-10px' }} className="text-blue-400">{technique?.name}</h4>
        
         <p className="mt-1 text-lg">
