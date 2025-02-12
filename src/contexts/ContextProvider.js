@@ -45,11 +45,15 @@ export const ContextProvider = ({ children }) => {
   const [home,setHome] = useState(true)
   const [playgrond,setPlaygrond] = useState(false)
   const [vertorDB,setVectorDB] = useState(false)
+  const setMode = (e) => {
+    setCurrentMode(e.target.value);
+    localStorage.setItem('themeMode', e.target.value);
+  };
   const handleClick = (clicked) => setIsClicked({ ...initialState, [clicked]: true });
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <StateContext.Provider value={{vertorDB,setVectorDB, playgrond,setPlaygrond,home,setHome,login1,setlogin1,mainPage,setMainPage,configurationSettings, setConfigSettings,querySuccess,setQuery,openAiSetting,setopenAiSettings,dbConfiguration,setDBConfiguration,dbSchema,schemaSuccess,setSchema,setDBSchema,openAISuccess,setOpenAISuccess,activeMenu,setActiveMenu,handleClick,setIsClicked,isClicked,initialState,setCurrentColor}}>
+    <StateContext.Provider value={{currentMode, setCurrentMode,vertorDB,setVectorDB, playgrond,setPlaygrond,home,setHome,login1,setlogin1,mainPage,setMainPage,configurationSettings, setConfigSettings,querySuccess,setQuery,openAiSetting,setopenAiSettings,dbConfiguration,setDBConfiguration,dbSchema,schemaSuccess,setSchema,setDBSchema,openAISuccess,setOpenAISuccess,activeMenu,setActiveMenu,handleClick,setIsClicked,isClicked,initialState,setCurrentColor}}>
       {children}
     </StateContext.Provider>
   );

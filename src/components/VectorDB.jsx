@@ -14,6 +14,8 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { BsFiletypeHtml } from "react-icons/bs";
 import { version as pdfjsVersion } from "pdfjs-dist/package.json";
+import { RiFileExcel2Fill } from "react-icons/ri";
+import { FaFileWord } from "react-icons/fa";
 //import abtimg from '../data/pdfimage.png';
 //import docuimg from '../data/excelimage.jpg';
 //import outlookimg from '../data/htmlimage.png';
@@ -106,7 +108,7 @@ const VectorDB = () => {
     techniquesData[0].name,
     techniquesData[1].name,
   ]);
-  const { home, setHome, playgrond, setPlaygrond, vertorDB, setVectorDB } =
+  const { home, setHome, playgrond, setPlaygrond, vertorDB, setVectorDB,currentMode } =
     useStateContext();
   const [pdfFile, setPdfFile] = useState(null);
   const [fileName, setFileName] = useState(null);
@@ -273,8 +275,8 @@ const VectorDB = () => {
   
 console.log("links",htmlLinks)
   return (
-    <div className="app-container">
-      <div className="sidebar">
+    <div className={`app-container ${currentMode === 'Dark' ? 'dark' : ''}`}>
+      <div className="sidebar sidebar dark:bg-[#1e1e1e] bg-[#f7f8fa]  border-t-0 border-gray-300 dark:border-[#4f4f4f]">
         <div className="sidebarContent">
           <div className="button-container">
             <NavLink
@@ -317,8 +319,8 @@ console.log("links",htmlLinks)
             {techniquesData.map((technique) => (
               <li key={technique.id}>
                 <label style={{display:"flex",gap:'10px'}}
-                  className={technique.index === 0 ? "disabled-technique" : ""}
-                >
+                 className={`text-[#555] dark:text-[#D3D3D3] ${technique.index === 0 ? "disabled-technique" : ""}`}>
+                
                   <input
                     type="checkbox"
                    
@@ -347,34 +349,46 @@ console.log("links",htmlLinks)
             ))}
           </ul>
         </div>
-       {/* <div className="sidenavimg flex justify-center">
-      <img
-          style={{width:"40px",marginTop:'-8px'}}
-          src={abtimg}
-          alt="nttlogo"
-        />
-      <img
-          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
-          src={rafimg}
-          alt="ragimg"
-        />
-          <img
-          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
-          src={outlookimg}
-          alt="nttlogo"
-        />
-      <img
-          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
-          src={docuimg}
-          alt="ragimg"
-        />
-   
-      </div> */}
+        <div className="sidenavimg flex justify-center">
+        <FaRegFilePdf
+                style={{
+                  color: "#FF0000",
+                  marginTop: "2px",
+                
+                }}
+                className="text-5xl"
+              />
+              <RiFileExcel2Fill
+                style={{
+                  color: "green",
+                  marginTop: "2px",
+                 
+                }}
+                className="text-5xl"
+              />
+      <BsFiletypeHtml
+                style={{
+                  color: "#1E90FF",
+                  marginTop: "2px",
+                 
+                }}
+                className="text-5xl"
+              />
+    
+    <FaFileWord
+                style={{
+                  color: "#0072C6",
+                  marginTop: "2px",
+                 
+                }}
+                className="text-5xl"
+              />
+      </div> 
       </div>
      
    
-      <div className="content bg-[#ffffff]">
-         <div className="toggle-container" style={{backgroundColor:'#ffffff'}}>
+      <div className="content dark:bg-black bg-[#ffffff]">
+         <div className="toggle-container  dark:bg-black bg-[#ffffff]" >
       {/* Label for "Create" */}
      
  
@@ -386,9 +400,9 @@ console.log("links",htmlLinks)
         <div className="toggle-knob"></div>
       </div>
        {/* Label for "Existing" */}
-       <span className="toggle-label" style={{backgroundColor:'white'}}>Add HTML Link</span>
+       <span className="toggle-label  dark:bg-black bg-[#ffffff] dark:text-white " >Add HTML Link</span>
     </div>  
-      {isExisting ?  <div className="upload-container">
+      {isExisting ?  <div className="upload-container  dark:bg-[#1e1e1e] bg-[#f7f7f7] border border-gray-300 dark:border-[#4f4f4f] border-dashed">
         <input
   id="file-upload"
   type="file"
@@ -397,16 +411,16 @@ console.log("links",htmlLinks)
   onChange={handleFileChange}
   className="hidden-input"
 />
-<label htmlFor="file-upload" className="drag-label">
+<label htmlFor="file-upload" className="drag-label dark:text-[#D3D3D3]">
   Drag & drop a PDF or HTML file here, or click to browse
 </label>
       
         </div>
         :
-          <div className="link-container" key="id">
+          <div className="link-container dark:bg-[#1e1e1e] bg-[#f7f7f7]  border border-gray-300 dark:border-[#4f4f4f]" key="id">
                 <textarea
                   id="links"
-                  className="link-input"
+                  className="link-input dark:bg-[#1e1e1e] bg-[#f7f7f7] dark:text-white text-black "
                   placeholder=""
                   value={userInputLink}
                   onChange={handleInputChange}
@@ -416,10 +430,10 @@ console.log("links",htmlLinks)
              <button className="addlink-button " onClick={addLinkToList}>Add Link</button>
               </div>}
              { (pdfFiles.length>0 || htmlLinks.length>0) ? <div className="flex">
-        <div className="file-info">
+        <div className="file-info dark:bg-[#1e1e1e] bg-[#f7f7f7]  border border-gray-300 dark:border-[#4f4f4f]">
   {pdfFiles.length > 0 && (
     <div>
-      <p className="text-left text-2xl font-bold">Documents</p>
+      <p className="text-left text-2xl font-bold dark:text-[#D3D3D3]">Documents</p>
 
       <div className="pdf-list mt-2 ml-2">
         {pdfFiles.map((file, index) => (
@@ -445,11 +459,11 @@ console.log("links",htmlLinks)
             )}
             {/* File Name */}
             <p
-               className="ml-1 text-left truncate"
+               className="ml-1 text-left truncate  dark:text-[#d3d3d3] text-black"
                style={{
                  cursor: "pointer",
                  
-                 color: "black",
+            
                  overflow: "hidden", // Prevent overflowing text
                  whiteSpace: "nowrap", // Prevent wrapping to the next line
                  textOverflow: "ellipsis", // Add ellipsis for overflow
@@ -461,7 +475,7 @@ console.log("links",htmlLinks)
             </p>
             {/* Remove File */}
             <IoIosClose
-              className="ml-4"
+              className="ml-4 dark:text-[#d3d3d3]"
               style={{ cursor: "pointer" }}
               onClick={() => handlePdfRemove(file)}
             />
@@ -475,7 +489,7 @@ console.log("links",htmlLinks)
   {htmlLinks.length > 0 && (
   <div>
     {/* Heading */}
-    <p className="text-left  text-2xl font-bold mt-6">Links</p>
+    <p className="text-left  text-2xl font-bold mt-6 dark:text-[#D3D3D3]">Links</p>
 
     {/* List of links */}
     <div className="link-list mt-2 ml-2">
@@ -493,11 +507,11 @@ console.log("links",htmlLinks)
     
       {/* Link Name */}
       <p
-        className="ml-1 text-left truncate"
+        className="ml-1 text-left truncate dark:text-[#d3d3d3] text-black"
         style={{
           cursor: "pointer",
          
-          color: "black",
+         
           overflow: "hidden", // Prevent overflowing text
           whiteSpace: "nowrap", // Prevent wrapping to the next line
           textOverflow: "ellipsis", // Add ellipsis for overflow
@@ -510,7 +524,7 @@ console.log("links",htmlLinks)
     
       {/* Remove Link */}
       <IoIosClose
-        className="ml-4"
+        className="ml-4 dark:text-[#d3d3d3]"
         style={{
           cursor: "pointer",
           flexShrink: 0, // Prevent shrinking of the remove icon
@@ -547,7 +561,7 @@ console.log("links",htmlLinks)
 </div>
 
 
-          <div className="pdf-info ml-2">
+          <div className="pdf-info ml-2 dark:bg-[#1e1e1e] bg-[#f7f7f7]  border border-gray-300 dark:border-[#4f4f4f]">
           {pdfFile && (
   <div>
     <div className="pdf-container">
@@ -564,7 +578,7 @@ console.log("links",htmlLinks)
         <iframe
           src={pdfFile}
           title="HTML Preview"
-          className="html-preview"
+          className="html-preview bg-white"
           style={{ width: "100%", height: "98vh", border: "none" }}
         ></iframe>
       ) : (
@@ -578,7 +592,7 @@ console.log("links",htmlLinks)
         </div> :
         <div className="flex-container ">
        
-          <div  className="dynamic-box1 mt-5" >
+          <div  className="dynamic-box1 mt-5 dark:bg-[#1e1e1e] bg-[#f7f7f7]  border border-gray-300 dark:border-[#4f4f4f]" >
             </div>
             </div>}
       </div>

@@ -6,7 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
-  const { login1, setlogin1, currentColor, handleClick,setIsClicked, initialState } = useStateContext();
+  const { login1, setlogin1, currentMode, handleClick,setIsClicked, initialState } = useStateContext();
   const navigate = useNavigate();
 
   // State to track if the user profile is open or closed
@@ -50,18 +50,18 @@ const UserProfile = () => {
     isOpen && (
       <div
         ref={profileRef}
-        className="nav-item absolute right top-10 bg-[#f8f9fa] p-4 rounded-lg w-48 ml-12"
-        style={{ border: '2px solid #D3D3D3' }}
+        className={`nav-item absolute right top-10 dark:bg-black bg-[#f8f9fa] p-4 rounded-lg w-48 ml-12 border border-gray-300 dark:border-[#4f4f4f] ${currentMode === 'Dark' ? 'dark' : ''}`}
+        
       >
         <div className="flex">
-          <CgProfile className="text-black text-xl mt-1" />
-          <p className="text-xl text-[#353839] ml-2">User Profile</p>
+          <CgProfile className="text-black dark:text-white text-xl mt-1" />
+          <p className="text-xl dark:text-white text-[#353839] ml-2">User Profile</p>
         </div>
         <div className="mt-1 flex">
-          <AiOutlineLogout className="text-black text-xl mt-1" />
+          <AiOutlineLogout className="dark:text-white text-black text-xl mt-1" />
           <button
             style={{ borderRadius: '10px', marginLeft: '10px' }}
-            className={`text-xl text-[#353839] hover:drop-shadow-xl`}
+            className="text-xl dark:text-white text-[#353839] hover:drop-shadow-xl"
             onClick={handleLogout}
           >
             Logout

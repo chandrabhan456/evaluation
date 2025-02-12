@@ -8,10 +8,10 @@ import azureimg from '../data/azuresearchAI.png';
 import ragimg from '../data/ragimage.png';
 import { SiFlask } from "react-icons/si";
 import { GiArtificialIntelligence } from "react-icons/gi";
-import abtimg from '../data/About_Us.png';
-import docuimg from '../data/documentation.png';
-import outlookimg from '../data/outlook_icon.jpg';
-import rafimg from '../data/reference.png';
+import { RiFileExcel2Fill } from "react-icons/ri";
+import { FaFileWord } from "react-icons/fa";
+import { BsFiletypeHtml } from "react-icons/bs";
+import { FaRegFilePdf } from "react-icons/fa";
 
 const Home = () => {
   const techniquesData = [
@@ -62,17 +62,17 @@ const Home = () => {
         "Explore the world of smarter search. Join us as we revolutionize how knowledge is discovered and retrieved.",
     },
   ];
-  const {home,setHome,playgrond,setPlaygrond,vertorDB,setVectorDB} = useStateContext();
+  const {home,setHome,playgrond,setPlaygrond,vertorDB,setVectorDB,currentMode} = useStateContext();
   
   
 
   
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${currentMode === 'Dark' ? 'dark' : ''}`}>
      
  
-      <div className="sidebar">
+      <div className="sidebar dark:bg-[#1e1e1e] bg-[#f7f8fa]  border-t-0 border-gray-300 dark:border-[#4f4f4f] ">
         <div className="sidebarContent">
           <div className="button-container">
           <NavLink
@@ -109,53 +109,67 @@ const Home = () => {
             </li>
           ))}
         </ul> */}
-         <p className="mt-5 text-3xl"><strong>RAG Search Techniques Evaluation Tool</strong></p>
+         <p className="mt-5 text-3xl dark:text-white"><strong>RAG Search Techniques Evaluation Tool</strong></p>
         </div>
         <div>
        
-        {/*<div className="mt-[135%] flex justify-center">
-      <img
-          style={{width:"40px",marginTop:'-8px'}}
-          src={abtimg}
-          alt="nttlogo"
-        />
-      <img
-          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
-          src={rafimg}
-          alt="ragimg"
-        />
-          <img
-          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
-          src={outlookimg}
-          alt="nttlogo"
-        />
-      <img
-          style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
-          src={docuimg}
-          alt="ragimg"
-        />
-   
-      </div>*/}
+        <div className="sidenavimg flex justify-center">
+               <FaRegFilePdf
+                       style={{
+                         color: "#FF0000",
+                         marginTop: "2px",
+                       
+                       }}
+                       className="text-5xl"
+                     />
+                     <RiFileExcel2Fill
+                       style={{
+                         color: "green",
+                         marginTop: "2px",
+                        
+                       }}
+                       className="text-5xl"
+                     />
+             <BsFiletypeHtml
+                       style={{
+                         color: "#1E90FF",
+                         marginTop: "2px",
+                        
+                       }}
+                       className="text-5xl"
+                     />
+           
+           <FaFileWord
+                       style={{
+                         color: "#0072C6",
+                         marginTop: "2px",
+                        
+                       }}
+                       className="text-5xl"
+                     />
+             </div> 
         </div>
       </div>
 
-      <div className="content">
+      <div className="content dark:bg-black bg-white">
         
         <div className="flex-container">
         
-              <div  className="dynamic-box">
-              <div style={{ backgroundColor: "#f5f5f5", fontFamily: "Arial, sans-serif", padding: "20px",marginTop:'-10px' }}>
+              <div  className="dynamic-box2 dark:bg-[#1e1e1e] bg-[#f7f7f7] dark:text-[#d3d3d3] text-[#555] border border-gray-300 dark:border-[#4f4f4f]">
+              <div style={{  fontFamily: "Arial, sans-serif", padding: "20px",marginTop:'-10px' }}>
       {/* Introduction Container */}
       <div
         style={{
           width: "100%",
           padding: "20px",
-          backgroundColor: "#f5f5f5",
-          border: "1px solid #ccc",
+         
+       
           marginBottom: "20px",
           borderRadius: "5px",
         }}
+        className="dark:bg-[#1e1e1e] bg-[#f7f7f7] dark:text-[#d3d3d3] text-[#555] border border-gray-300 dark:border-[#4f4f4f]"
       >
+        
         <h1 className="text-xl text-blue-600">Introduction</h1>
         <p>{Intro[0].introduction}</p>
       </div>
@@ -171,10 +185,11 @@ const Home = () => {
         {/* Our Expertise */}
         <div
           style={{
-            border: "1px solid #ccc",
+           
             padding: "20px",
             borderRadius: "5px",
           }}
+          className="dark:bg-[#1e1e1e] bg-[#f7f7f7] dark:text-[#d3d3d3] text-[#555] border border-gray-300 dark:border-[#4f4f4f]"
         >
           <h2 className="text-xl text-blue-600">Our Expertise</h2>
           <p className="mt-2">We specialize in applying and benchmarking advanced RAG search methodologies</p>
@@ -190,10 +205,11 @@ const Home = () => {
         {/* Why Choose Us */}
         <div
           style={{
-            border: "1px solid #ccc",
+        
             padding: "20px",
             borderRadius: "5px",
           }}
+          className="dark:bg-[#1e1e1e] bg-[#f7f7f7] dark:text-[#d3d3d3] text-[#555] border border-gray-300 dark:border-[#4f4f4f]"
         >
           <h2 className="text-xl text-blue-600">Why Choose Us?</h2>
           <p className="mt-2">{data[0].WhyChoosen}</p>
@@ -202,10 +218,11 @@ const Home = () => {
         {/* Our Mission */}
         <div
           style={{
-            border: "1px solid #ccc",
+        
             padding: "20px",
             borderRadius: "5px",
           }}
+          className="dark:bg-[#1e1e1e] bg-[#f7f7f7] dark:text-[#d3d3d3] text-[#555] border border-gray-300 dark:border-[#4f4f4f]"
         >
           <h2 className="text-xl text-blue-600">Our Mission</h2>
           <p className="mt-2">{data[0].OurMission}</p>
@@ -214,18 +231,19 @@ const Home = () => {
         {/* Innovation */}
         <div
           style={{
-            border: "1px solid #ccc",
+           
             padding: "20px",
             borderRadius: "5px",
           }}
+          className="dark:bg-[#1e1e1e] bg-[#f7f7f7] dark:text-[#d3d3d3] text-[#555] border border-gray-300 dark:border-[#4f4f4f]"
         >
           <h2 className="text-xl text-blue-600">Innovation</h2>
           <p className="mt-2">{data[0].Innovation}</p>
         </div>
       </div>
-      <div className="mt-5 flex justify-end"><div><SiOpenai style={{height:"45px",width:"45px",color:'black'}}className="ml-3" /><div className="tag1" >OpenAI</div></div>
-     <div> <SiFlask style={{height:"45px",width:"100px",color:'black'}} /><div className="tag1 ml-5" >Flask</div></div>
-     <div> <GiArtificialIntelligence style={{height:"45px",width:"80px",color:'black'}} className="ml-2"/>  <div className="tag1 ml-3" >Artificial Intelligence</div></div>
+      <div className="mt-5 flex justify-end"><div><SiOpenai style={{height:"45px",width:"45px"}}className="ml-3  dark:text-white text-black bg-transparent" /><div className="tag1" >OpenAI</div></div>
+     <div> <SiFlask style={{height:"45px",width:"100px"}} /><div className="tag1 ml-5  dark:text-white text-black bg-transparent" >Flask</div></div>
+     <div> <GiArtificialIntelligence style={{height:"45px",width:"80px"}} className="ml-2 dark:text-white text-black bg-transparent"/>  <div className="tag1 ml-3" >Artificial Intelligence</div></div>
      <div>
       <img
           style={{width:"70px",height:"55px",marginLeft:"20px",marginTop:'-8px'}}

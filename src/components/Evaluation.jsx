@@ -5,7 +5,10 @@ import { useStateContext } from '../contexts/ContextProvider';
 import { Link, NavLink } from 'react-router-dom';
 import Select from 'react-select';
 import React, { useState, useEffect, useRef } from 'react';
-
+import { RiFileExcel2Fill } from "react-icons/ri";
+import { FaFileWord } from "react-icons/fa";
+import { BsFiletypeHtml } from "react-icons/bs";
+import { FaRegFilePdf } from "react-icons/fa";
 // import abtimg from '../data/pdfimage.png';
 // import docuimg from '../data/excelimage.jpg';
 // import outlookimg from '../data/htmlimage.png';
@@ -32,7 +35,7 @@ const Evaluation1 = () => {
   const [techniquesData, setTechniquesData] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [userInput1, setUserInput1] = useState("");
-  const { home, setHome, playgrond, setPlaygrond, vertorDB, setVectorDB } = useStateContext();
+  const { home, setHome, playgrond, setPlaygrond, vertorDB, setVectorDB,currentMode, setCurrentMode, } = useStateContext();
  
   const [message, setMessage] = useState(''); 
   const [groundTruth,setGroundTruth] = useState(false)
@@ -63,22 +66,22 @@ const Evaluation1 = () => {
     setMethods(true)
     const fetchIndexes = async () => {
       try {
-       const response = await fetch('http://localhost:3001/getindexes', {
-         method: 'GET'
-        });
+       //const response = await fetch('http://localhost:3001/getindexes', {
+        // method: 'GET'
+        //});
 
-       const data = await response.json();
-    //   const data ={
-    //     "Response": [
-    //         "Similarity_Search_Method",
-    //         "HyDE_Search_Method",
-    //         "Similarity_Score_Search_Method",
-    //         "Hybrid_Search_Method",
-    //         "Vector_Search_Method",
-    //         "MMRS_With_Score_Method"
-    //     ],
-    //     "status": 200
-    // }      
+       //const data = await response.json();
+      const data ={
+        "Response": [
+            "Similarity_Search_Method",
+            "HyDE_Search_Method",
+            "Similarity_Score_Search_Method",
+            "Hybrid_Search_Method",
+            "Vector_Search_Method",
+            "MMRS_With_Score_Method"
+        ],
+        "status": 200
+    }      
         
         if (data && data.status === 200) {
           const formattedData = data.Response.map((item, index) => ({
@@ -426,10 +429,10 @@ console.log("max height",maxHeight)
 console.log("Boolean",myBoolean)
  console.log("GroundTruth",formattedData.length);
  return (
-  <div className="app-container">
+  <div className={`app-container ${currentMode === 'Dark' ? 'dark' : ''}`} >
    
 
-    <div className="sidebar">
+    <div className="sidebar dark:bg-[#1e1e1e] bg-[#f7f8fa]  border-t-0 border-gray-300 dark:border-[#4f4f4f]">
       <div className="sidebarContent">
         <div className="button-container">
           <NavLink
@@ -455,9 +458,9 @@ console.log("Boolean",myBoolean)
                                       ><button className="home-button ">Playground</button></NavLink>
                     <button className="home-button ">EvalFrame</button>
       </div>
-      <div className="toggle-container justify-center mt-2 ">
+      <div className="toggle-container justify-center mt-2 dark:bg-[#1e1e1e] bg-[#f7f8fa] ">
       {/* Label for "Create" */}
-      <span className="toggle-label ">RAGAS</span>
+      <span className="toggle-label  dark:bg-[#1e1e1e] bg-[#f7f8fa]  dark:text-white text-black ">RAGAS</span>
  
       {/* Toggle switch */}
       <div
@@ -467,7 +470,7 @@ console.log("Boolean",myBoolean)
         <div className="toggle-knob"></div>
       </div>
        {/* Label for "Existing" */}
-       <span className="toggle-label">DeepEval</span>
+       <span className="toggle-label  dark:bg-[#1e1e1e] bg-[#f7f8fa]  dark:text-white text-black">DeepEval</span>
     </div>   
     {methods && (
       <div class="loading-container mt-10">
@@ -479,7 +482,7 @@ console.log("Boolean",myBoolean)
      {!methods && <ul style={{marginTop:'3px'}}>
         {updatedData1.map((technique) => (
           <li key={technique.id} >
-            <label    className="truncate">
+            <label    className="truncate dark:text-[#D3D3D3] text-[#555]">
               <input
                 type="checkbox"
                 checked={selectedTechniques.includes(technique.name)}
@@ -491,33 +494,45 @@ console.log("Boolean",myBoolean)
         ))}
       </ul>}
       </div>
-     {/* <div className="sidenavimg flex justify-center" >
-    <img
-        style={{width:"40px",marginTop:'-8px'}}
-        src={abtimg}
-        alt="nttlogo"
-      />
-    <img
-        style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
-        src={rafimg}
-        alt="ragimg"
-      />
-        <img
-        style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
-        src={outlookimg}
-        alt="nttlogo"
-      />
-    <img
-        style={{width:"40px",marginLeft:"20px",marginTop:'-8px'}}
-        src={docuimg}
-        alt="ragimg"
-      />
- 
-    </div>*/}
+      <div className="sidenavimg flex justify-center">
+             <FaRegFilePdf
+                     style={{
+                       color: "#FF0000",
+                       marginTop: "2px",
+                     
+                     }}
+                     className="text-5xl"
+                   />
+                   <RiFileExcel2Fill
+                     style={{
+                       color: "green",
+                       marginTop: "2px",
+                      
+                     }}
+                     className="text-5xl"
+                   />
+           <BsFiletypeHtml
+                     style={{
+                       color: "#1E90FF",
+                       marginTop: "2px",
+                      
+                     }}
+                     className="text-5xl"
+                   />
+         
+         <FaFileWord
+                     style={{
+                       color: "#0072C6",
+                       marginTop: "2px",
+                      
+                     }}
+                     className="text-5xl"
+                   />
+           </div> 
     </div>
 
-    <div className="content bg-[#ffffff]">
-    <div className="toggle-container" style={{backgroundColor:'#ffffff'}}>
+    <div className="content dark:bg-black bg-[#ffffff]">
+    <div className="toggle-container dark:bg-black bg-[#ffffff]" >
       {/* Label for "Create" */}
      
  
@@ -529,12 +544,12 @@ console.log("Boolean",myBoolean)
         <div className="toggle-knob"></div>
       </div>
        {/* Label for "Existing" */}
-       <span className="toggle-label" style={{backgroundColor:'white'}}>Add Reference</span>
+       <span className="toggle-label dark:bg-black bg-[#ffffff] dark:text-white text-black">Add Reference</span>
     </div>  
     {!groundTruth &&
     <div className="input-container ">
     <textarea
-      className="question-input0"
+      className="question-input0 dark:bg-[#1e1e1e] bg-[#f7f7f7]  border border-gray-300 dark:border-[#4f4f4f]  dark:text-white text-black"
       placeholder="Type your question here..."
       value={userInput}
       onChange={handleInputChange}
@@ -547,14 +562,14 @@ console.log("Boolean",myBoolean)
       {groundTruth && 
       <div className="input-container ">
         <textarea
-          className="question-input"
+          className="question-input dark:bg-[#1e1e1e] bg-[#f7f7f7]  border border-gray-300 dark:border-[#4f4f4f]  dark:text-white text-black"
           placeholder="Type your question here..."
           value={userInput}
           onChange={handleInputChange}
         ></textarea>
      
         <textarea
-          className="question-input1 ml-0.5"
+          className="question-input1 ml-0.5  dark:text-white text-black dark:bg-[#1e1e1e] bg-[#f7f7f7]  border border-gray-300 dark:border-[#4f4f4f]"
           placeholder="GroundTruth/Optional"
           value={userInput1}
           onChange={handleInputChange1}
@@ -567,14 +582,14 @@ console.log("Boolean",myBoolean)
  {((!myBoolean||!techname||(!message&&!isLoading))
  ) && (<div className="flex-container">
        
-       <div  className="dynamic-box1">
+       <div  className="dynamic-box1 dark:bg-[#1e1e1e] bg-[#f7f7f7]  border border-gray-300 dark:border-[#4f4f4f]">
      {errormsg && <div className="ml-[34%]"><p className="message-box1 ">{errormsg}</p></div>}
  </div>
  </div>
 )}
     {isLoading && (<div className="flex-container">
        
-            <div  className="dynamic-box1">
+            <div  className="dynamic-box1 dark:bg-[#1e1e1e] bg-[#f7f7f7]  border border-gray-300 dark:border-[#4f4f4f]">
            
       <div className="progress-bar-container">
        
@@ -601,7 +616,7 @@ console.log("Boolean",myBoolean)
       //<div key={index}   ref={(el) => (boxRefs.current[index] = el)} 
       //className="dynamic-box" style={{ minHeight: maxHeight }}>
       <div key={index}   ref={(el) => (boxRefs.current[index] = el)} 
-       className="dynamic-box max-h-[800px] overflow-y-auto" >
+       className="dynamic-box max-h-[800px] overflow-y-auto dark:bg-[#1e1e1e] bg-[#f7f7f7] dark:text-[#d3d3d3] text-[#555] border border-gray-300 dark:border-[#4f4f4f]">
         <h4 style={{ marginTop: '-10px' }} className="text-blue-400">{technique?.name}</h4>
        
         <p className="mt-1 text-lg">
@@ -616,7 +631,7 @@ console.log("Boolean",myBoolean)
         <p className="mt-7">
           <strong className="text-xl mt-7">LLM Evaluation Metrics:</strong>
         </p>
-        <div className="evaluation-matrix mt-1">
+        <div className="evaluation-matrix mt-1 dark:bg-[#2d3a30] bg-[#ddf2d1]">
           <p className="mt-1 tect-lg">
             <strong className="text-lg">Answer Relevancy:</strong> {technique?.answer_relevancy}
           </p>

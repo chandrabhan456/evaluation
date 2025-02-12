@@ -9,13 +9,20 @@ import Login from "./views/Login";
 const App = () => {
   localStorage.setItem('OpenAI_Configuration',true)
   localStorage.removeItem("login");
-  const {activeMenu, setActiveMenu,login1,setlogin1 } = useStateContext();
-  console.log("chandu",login1)
-  
+  const {activeMenu, setActiveMenu,login1,setlogin1,currentMode, setCurrentMode, } = useStateContext();
+  console.log("chandu",currentMode)
+  useEffect(() => {
+   
+    const currentThemeMode = localStorage.getItem('themeMode');
+    if ( currentThemeMode) {
+     
+      setCurrentMode(currentThemeMode);
+    }
+  }, []);
  
 
   return (
-<div>
+<div className={currentMode === 'Dark' ? 'dark' : ''}>
   <BrowserRouter>
   
   { !login1 && <Login />}
@@ -39,7 +46,7 @@ const App = () => {
                 : 'bg-white min-h-screen  md:ml-0 w-full  '
             }
           >
-            <div className="fixed md:static  bg-white navbar w-full ">
+            <div className="fixed md:static  navbar w-full ">
               <Navbar />
             </div>
           

@@ -11,6 +11,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import nttlogo from '../data/nttdatalogo.svg';
 import {usrNavigate} from 'react-router-dom'
 import { IoHomeOutline } from "react-icons/io5";
+import { LuSunMoon } from "react-icons/lu";
 
 import { MdOutlineWbSunny } from "react-icons/md";
 import "./navbar.css"
@@ -50,64 +51,65 @@ const Navbar = () => {
   const navigate = useNavigate()
   return (
     <div className={currentMode === 'Dark' ? 'dark' : ''}>
-    <div className='flex justify-between md:mx-0 relative w-full bg-[#FFFFFF]'  > 
+    <div className='flex justify-between md:mx-0  relative w-full  dark:bg-black bg-[#FFFFFF]' style={{height:'65px'}} > 
   
     <div className='flex'><img
           style={{width:"250px",marginLeft:"-15px"}}
+          className='mt-1'
           src={nttlogo}
           alt="nttlogo"
         />
-        <div className='mt-4 ml-2 text-3xl'>Gen AI Core India</div>
+        <div className='mt-4  text-3xl dark:text-white text-black'>Gen AI Core India</div>
     </div>
     
 
-      <div className='absolute inline-flex rounded-full h-2 w-2 right-60 top-4' > 
+      <div className='absolute inline-flex rounded-full h-2 w-2 right-60 top-3' > 
      {(activeMenu) &&
       <NavButton title="Chat" customFunc={() => handleClick('setting')}
     
-      color={ currentMode == 'Light'  ? 'black' : 'black'}  icon={<FiSettings />} />}
+      color={ currentMode == 'Light'  ? 'black' : 'white'}  icon={<FiSettings />} />}
       {!(activeMenu) &&  <NavButton title="Chat" customFunc={() => {setMainPage(true);setActiveMenu(true)}}
     
-    color={ currentMode == 'Light'  ? 'black' : 'black'}  icon={<IoHomeOutline />} />}
-      <NavButton title="Notification" customFunc={() => handleClick('notification')}
-       
-      color={ currentMode == 'Light'  ? 'black' : 'black'}  icon={<MdOutlineWbSunny />} />
-       
+    color={ currentMode === 'Light'  ? 'black' : 'white'}  icon={<IoHomeOutline />} />}
+    {(currentMode === 'Light') && <NavButton title="Notification" customFunc={() => setCurrentMode("Dark")}
+      
+     color={ currentMode === 'Light'  ? 'black' : 'white'}  icon={<MdOutlineWbSunny />} />}
+       {(currentMode === 'Dark') && <NavButton title="Notification" customFunc={() => setCurrentMode("Light")}
+      
+      color={ currentMode === 'Light'  ? 'black' : 'white'}  icon={<LuSunMoon />} />}
+        
           <div
-             className="img items-center mt-4 gap-2  "
+             className="img items-center mt-4 ml-3  "
              onClick={() => handleClick('userProfile')}
+             style={{cursor:'pointer'}}
           >
 
             <img
-              className="img rounded-full w-8 h-8 mt-1 "
+              className="img rounded-full w-8 h-8 mt-2 "
               src={avatar}
               alt="user-profile"
             />
             <p className='whitespace-nowrap flex mt-2'>
-              <span className="text-black-400 text-14 text-black dark:text-black"  >Hi,</span>{' '}
-              <span className="flex text-black-400 font-bold ml-1 text-14 text-black dark:text-black"  >
+              <span className="text-black-400 text-14 text-black dark:text-white"  >Hi,</span>{' '}
+              <span className="flex text-black-400 font-bold ml-1 text-14 text-black dark:text-white"  >
                 Michael
-              {!(isClicked.userProfile) &&  <MdKeyboardArrowDown className="text-black text-14 mt-1" />}
-              {(isClicked.userProfile) &&  <MdKeyboardArrowUp className="text-black text-14 mt-1" onClick={() => handleClick('userProfile')}/>}
+              {!(isClicked.userProfile) &&  <MdKeyboardArrowDown className="dark:text-white text-black text-14 mt-1" />}
+              {(isClicked.userProfile) &&  <MdKeyboardArrowUp className="dark:text-white text-black text-14 mt-1" onClick={() => handleClick('userProfile')}/>}
              
               </span>
             </p>
           
           </div>
           {mainPage && <Navigate replace={true} to='/' />}
-           {isClicked.setting && <Setting /> } 
+           {/* {isClicked.setting && <Setting /> }  */}
            {isClicked.userProfile && (<UserProfile />)}
-           
+    
            
 
       </div>
     </div>
-    <div style={{
-      width: '100%',
-      
-      height: '1px',
-      backgroundColor: '#D3D3D3',
-    }} />
+  
+     <hr className="border border-gray-300 dark:border-[#4f4f4f]" /> 
     </div>
   );
 };

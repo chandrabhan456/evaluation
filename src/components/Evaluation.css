@@ -11,7 +11,7 @@ body {
   }
   .sidebar {
     width: 400px;
-    background-color: #f7f8fa;
+   
     padding: 20px;
     
     border-right: 1px solid #ddd;
@@ -51,7 +51,7 @@ body {
     display: flex;
     align-items: center;
     font-size: 20px;
-    color: #555;
+  
     cursor: pointer;
     transition: color 0.2s;
     margin-left: 0px;
@@ -173,7 +173,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-height: 700px; /* Adjust as needed */
+    max-height: 70vh; /* Adjust as needed */
     overflow-y: auto; /* Enables scrolling */
     display: flex;
     flex-direction: column;
@@ -193,7 +193,35 @@ body {
 .dynamic-box::-webkit-scrollbar-track {
     background-color: #e5e7eb;
 }
- 
+  .dynamic-box2 {
+  flex: 1 1 calc(50% - 30px);
+  background-color: #f7f7f7;
+  box-sizing: border-box;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 95%; /* Adjust as needed */
+  overflow-y: auto; /* Enables scrolling */
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+/* Custom Scrollbar */
+.dynamic-box2::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dynamic-box2::-webkit-scrollbar-thumb {
+  background-color: #3b82f6;
+  border-radius: 4px;
+}
+
+.dynamic-box2::-webkit-scrollbar-track {
+  background-color: #e5e7eb;
+}
+
 .input-container {
     position: relative;
    
@@ -212,7 +240,7 @@ body {
     width: 100%;
     height: 80px;
     padding: 10px;
-    background-color: #f7f7f7;
+   
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -224,7 +252,7 @@ body {
     width: 60%;
     height: 80px;
     padding: 10px;
-    background-color: #f7f7f7;
+   
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -238,7 +266,7 @@ body {
     width: 100%;
     height: 55px;
     text-align: left;
-    background-color: #f7f7f7;
+   
     font-size: 26px;
   
   
@@ -247,14 +275,14 @@ body {
     display: block;
     height: 100%;
     line-height: 60px; /* Adjust to approximate the placeholder's vertical centering */
-    color: #aaa;
+    
     margin-left: 20px; /* Optional: setting placeholder color */
 }
   .question-input1 {
     width: 40%;
     height: 80px;
     padding: 10px;
-    background-color: #f7f7f7;
+  
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -462,7 +490,7 @@ body {
 }
 .evaluation-matrix {
  
-  background-color: #ddf2d1;
+
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -508,7 +536,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: #f8f9fa; /* Matches your page background */
+ 
   padding: 10px;
   
   border-radius: 8px;
@@ -519,7 +547,7 @@ body {
   font-size: 16px;
   font-weight: bold;
   color: #333; /* Darker text for contrast */
-  background-color: #f8f9fa; /* Slightly darker shade than #f8f9fa */
+ 
   padding: 5px 10px;
   border-radius: 5px;
   
