@@ -196,7 +196,7 @@ const Home = () => {
           <ul>
             {Object.entries(data[0].OurExpertise).map(([key, value], index) => (
               <li key={index}>
-                <strong>{key}:</strong> {value}
+                <strong className="text-lg text-blue-400">{key}:</strong> {value}
               </li>
             ))}
           </ul>
